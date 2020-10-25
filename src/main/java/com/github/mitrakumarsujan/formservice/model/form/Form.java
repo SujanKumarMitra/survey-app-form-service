@@ -1,10 +1,12 @@
 package com.github.mitrakumarsujan.formservice.model.form;
 
+import java.io.Serializable;
+
 /**
  * @author Sujan Kumar Mitra
  * @since 2020-10-25
  */
-public interface Form {
+public interface Form extends Serializable {
 
 	String getUID();
 
