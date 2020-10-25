@@ -12,7 +12,5 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as = FormTemplateImpl.class)
 public interface FormTemplate extends Serializable {
 
-	String getId();
-
 	List<FormField> getFields();
 }
