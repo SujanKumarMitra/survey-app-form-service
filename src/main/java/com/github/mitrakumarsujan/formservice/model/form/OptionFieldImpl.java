@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 @Valid
 public class OptionFieldImpl implements OptionField {
 
+	private static final long serialVersionUID = 8528535349493451965L;
+
 	private String uid;
 
 	@NotNull(message = "text cannot be null")
