@@ -26,6 +26,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
  * @since 2020-10-24
  */
 public interface FormField extends Serializable {
+	
+	String getUID();
+	
+	void setUID(String uid);
 
 	String getQuestion();
 

@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 @Valid
 public class OptionFieldImpl implements OptionField {
 
+	private String uid;
+
 	@NotNull(message = "text cannot be null")
 	@NotEmpty(message = "text cannot be empty")
 	@NotBlank(message = "text cannot be blank")
@@ -21,7 +23,8 @@ public class OptionFieldImpl implements OptionField {
 	private OptionFieldImpl() {
 	}
 
-	public OptionFieldImpl(String text) {
+	public OptionFieldImpl(String uid, String text) {
+		this.uid = uid;
 		this.text = text;
 	}
 
@@ -35,6 +38,16 @@ public class OptionFieldImpl implements OptionField {
 	}
 
 	@Override
+	public String getUID() {
+		return uid;
+	}
+
+	@Override
+	public void setUID(String uid) {
+		this.uid = uid;
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("OptionField [text=");
@@ -42,5 +55,4 @@ public class OptionFieldImpl implements OptionField {
 		builder.append("]");
 		return builder.toString();
 	}
-
 }

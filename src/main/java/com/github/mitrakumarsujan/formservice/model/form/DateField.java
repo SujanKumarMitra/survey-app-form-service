@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * @author Sujan Kumar Mitra
  * @since 2020-10-24
  */
-@JsonPropertyOrder({ "type", "question", "required", "pattern" })
+@JsonPropertyOrder({"uid", "type", "question", "required", "pattern" })
 public class DateField extends AbstractFormElement implements PatternedFormField {
 
 	private static final long serialVersionUID = 2450510899943300177L;

@@ -14,6 +14,8 @@ public abstract class AbstractFormElement implements FormField {
 
 	private static final long serialVersionUID = 5980074893003836601L;
 
+	private String uid;
+
 	@NotNull(message = "question cannot be null")
 	@NotEmpty(message = "question cannot be empty")
 	@NotBlank(message = "question cannot be blank")
@@ -25,8 +27,13 @@ public abstract class AbstractFormElement implements FormField {
 	}
 
 	public AbstractFormElement(String question, boolean required) {
-		this.required = required;
+		this(null, question, required);
+	}
+
+	public AbstractFormElement(String uid, String question, boolean required) {
+		this.uid = uid;
 		this.question = question;
+		this.required = required;
 	}
 
 	@Override
@@ -45,6 +52,16 @@ public abstract class AbstractFormElement implements FormField {
 
 	public void setQuestion(String question) {
 		this.question = question;
+	}
+
+	@Override
+	public String getUID() {
+		return uid;
+	}
+
+	@Override
+	public void setUID(String uid) {
+		this.uid = uid;
 	}
 
 }

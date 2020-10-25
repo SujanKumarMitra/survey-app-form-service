@@ -9,6 +9,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as = OptionFieldImpl.class)
 public interface OptionField {
 
+	void setUID(String uid);
+
+	String getUID();
+
 	String getText();
 
 }
