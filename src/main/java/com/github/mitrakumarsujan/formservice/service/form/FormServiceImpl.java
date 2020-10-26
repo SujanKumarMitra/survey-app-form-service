@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.mitrakumarsujan.formmodel.model.form.ChoiceTypeFormField;
+import com.github.mitrakumarsujan.formmodel.model.form.ChoiceBasedFormField;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
 import com.github.mitrakumarsujan.formmodel.model.form.FormTemplate;
@@ -58,9 +58,9 @@ public class FormServiceImpl implements FormService {
 	private Stream<OptionField> getOptionFieldStream(FormTemplate template) {
 		return template	.getFields()
 						.parallelStream()
-						.filter(field -> field instanceof ChoiceTypeFormField)
-						.map(field -> (ChoiceTypeFormField) field)
-						.map(ChoiceTypeFormField::getOptions)
+						.filter(field -> field instanceof ChoiceBasedFormField)
+						.map(field -> (ChoiceBasedFormField) field)
+						.map(ChoiceBasedFormField::getOptions)
 						.flatMap(List::parallelStream);
 	}
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formmodel.model.form.ChoiceTypeFormField;
+import com.github.mitrakumarsujan.formmodel.model.form.ChoiceBasedFormField;
 import com.github.mitrakumarsujan.formmodel.model.form.OptionField;
 
 /**
@@ -13,13 +13,13 @@ import com.github.mitrakumarsujan.formmodel.model.form.OptionField;
  * @since 2020-10-25
  */
 @Component
-public class ChoiceTypeFormFieldUIDGenerator implements UIDGenerator<ChoiceTypeFormField> {
+public class ChoiceBasedFormFieldUIDGenerator implements UIDGenerator<ChoiceBasedFormField> {
 
 	@Autowired
 	private HashFunction hashFunction;
 
 	@Override
-	public String generate(ChoiceTypeFormField formField) {
+	public String generate(ChoiceBasedFormField formField) {
 
 		long time;
 		synchronized (this) {
@@ -27,7 +27,7 @@ public class ChoiceTypeFormFieldUIDGenerator implements UIDGenerator<ChoiceTypeF
 		}
 		String question = formField.getQuestion();
 		boolean required = formField.isRequired();
-		List<OptionField> options = formField.getOptions();
+		List<? extends OptionField> options = formField.getOptions();
 
 		return hashFunction.toHash(time, question, required, options);
 	}

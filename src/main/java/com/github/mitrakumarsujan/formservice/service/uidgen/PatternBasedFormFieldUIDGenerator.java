@@ -3,20 +3,20 @@ package com.github.mitrakumarsujan.formservice.service.uidgen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formmodel.model.form.PatternedFormField;
+import com.github.mitrakumarsujan.formmodel.model.form.PatternBasedFormField;
 
 /**
  * @author Sujan Kumar Mitra
  * @since 2020-10-25
  */
 @Component
-public class PatternedFormFieldUIDGenerator implements UIDGenerator<PatternedFormField> {
+public class PatternBasedFormFieldUIDGenerator implements UIDGenerator<PatternBasedFormField> {
 
 	@Autowired
 	private HashFunction hashFunction;
 
 	@Override
-	public String generate(PatternedFormField formField) {
+	public String generate(PatternBasedFormField formField) {
 
 		long time;
 		synchronized (this) {

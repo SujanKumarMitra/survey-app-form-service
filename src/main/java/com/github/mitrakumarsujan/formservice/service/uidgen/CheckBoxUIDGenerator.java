@@ -13,7 +13,7 @@ import com.github.mitrakumarsujan.formmodel.model.form.CheckBoxField;
 public class CheckBoxUIDGenerator implements UIDGenerator<CheckBoxField> {
 
 	@Autowired
-	private ChoiceTypeFormFieldUIDGenerator delegatee;
+	private ChoiceBasedFormFieldUIDGenerator delegatee;
 
 	@Override
 	public String generate(CheckBoxField checkBox) {
