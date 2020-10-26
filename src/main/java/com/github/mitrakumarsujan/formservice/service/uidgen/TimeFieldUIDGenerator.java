@@ -13,11 +13,11 @@ import com.github.mitrakumarsujan.formmodel.model.form.TimeField;
 public class TimeFieldUIDGenerator implements UIDGenerator<TimeField> {
 
 	@Autowired
-	private PatternedFormFieldUIDGenerator delegator;
+	private PatternedFormFieldUIDGenerator delegatee;
 
 	@Override
 	public String generate(com.github.mitrakumarsujan.formmodel.model.form.TimeField timeField) {
-		return delegator.generate(timeField);
+		return delegatee.generate(timeField);
 	}
 
 }

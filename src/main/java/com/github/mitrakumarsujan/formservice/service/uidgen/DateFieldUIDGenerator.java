@@ -13,11 +13,11 @@ import com.github.mitrakumarsujan.formmodel.model.form.DateField;
 public class DateFieldUIDGenerator implements UIDGenerator<DateField> {
 
 	@Autowired
-	private PatternedFormFieldUIDGenerator delegator;
+	private PatternedFormFieldUIDGenerator delegatee;
 
 	@Override
 	public String generate(DateField dateField) {
-		return delegator.generate(dateField);
+		return delegatee.generate(dateField);
 	}
 
 }

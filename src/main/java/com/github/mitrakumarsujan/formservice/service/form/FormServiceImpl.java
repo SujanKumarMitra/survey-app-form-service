@@ -51,8 +51,8 @@ public class FormServiceImpl implements FormService {
 		Stream<OptionField> optionFieldStream = getOptionFieldStream(template);
 		Stream<FormField> formFieldStream = getFormFieldStream(template);
 
-		optionFieldStream.forEach(optionField -> setUIDInOptionField(optionField, request));
-		formFieldStream.forEach(formField -> setUIDInFormField(formField, request));
+		optionFieldStream.forEach(optionField -> setUIDInField(optionField, request));
+		formFieldStream.forEach(formField -> setUIDInField(formField, request));
 	}
 
 	private Stream<OptionField> getOptionFieldStream(FormTemplate template) {
@@ -69,12 +69,12 @@ public class FormServiceImpl implements FormService {
 						.parallelStream();
 	}
 
-	private void setUIDInOptionField(OptionField optionField, HttpServletRequest request) {
+	private void setUIDInField(OptionField optionField, HttpServletRequest request) {
 		String uid = uidGeneratorService.generate(optionField, request);
 		optionField.setUID(uid);
 	}
 
-	private void setUIDInFormField(FormField formField, HttpServletRequest request) {
+	private void setUIDInField(FormField formField, HttpServletRequest request) {
 		String uid = uidGeneratorService.generate(formField, request);
 		formField.setUID(uid);
 	}

@@ -13,11 +13,11 @@ import com.github.mitrakumarsujan.formmodel.model.form.RadioButtonField;
 public class RadioButtonUIDGenerator implements UIDGenerator<RadioButtonField> {
 
 	@Autowired
-	private ChoiceTypeFormFieldUIDGenerator delegator;
+	private ChoiceTypeFormFieldUIDGenerator delegatee;
 
 	@Override
 	public String generate(RadioButtonField radioButton) {
-		return delegator.generate(radioButton);
+		return delegatee.generate(radioButton);
 	}
 
 }

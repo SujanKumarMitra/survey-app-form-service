@@ -13,11 +13,11 @@ import com.github.mitrakumarsujan.formmodel.model.form.TextBoxField;
 public class TextBoxUIDGenerator implements UIDGenerator<TextBoxField> {
 
 	@Autowired
-	private FormFieldUIDGenerator delegator;
+	private FormFieldUIDGenerator delegatee;
 
 	@Override
 	public String generate(TextBoxField textBox) {
-		return delegator.generate(textBox);
+		return delegatee.generate(textBox);
 	}
 
 }
