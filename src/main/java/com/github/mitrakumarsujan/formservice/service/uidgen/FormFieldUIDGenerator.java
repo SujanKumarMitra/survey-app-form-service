@@ -3,7 +3,7 @@ package com.github.mitrakumarsujan.formservice.service.uidgen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formservice.model.form.FormField;
+import com.github.mitrakumarsujan.formmodel.model.form.FormField;
 
 /**
  * @author Sujan Kumar Mitra

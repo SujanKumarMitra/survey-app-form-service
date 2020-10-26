@@ -2,8 +2,8 @@ package com.github.mitrakumarsujan.formservice.service.form;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.github.mitrakumarsujan.formservice.model.form.Form;
-import com.github.mitrakumarsujan.formservice.model.form.FormTemplate;
+import com.github.mitrakumarsujan.formmodel.model.form.Form;
+import com.github.mitrakumarsujan.formmodel.model.form.FormTemplate;
 
 /**
  * @author Sujan Kumar Mitra

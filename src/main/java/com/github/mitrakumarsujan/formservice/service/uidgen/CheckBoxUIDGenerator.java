@@ -3,7 +3,7 @@ package com.github.mitrakumarsujan.formservice.service.uidgen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formservice.model.form.CheckBoxField;
+import com.github.mitrakumarsujan.formmodel.model.form.CheckBoxField;
 
 /**
  * @author Sujan Kumar Mitra

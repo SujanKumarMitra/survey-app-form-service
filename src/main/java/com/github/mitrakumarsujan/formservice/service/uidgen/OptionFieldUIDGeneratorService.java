@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.mitrakumarsujan.formservice.model.form.OptionField;
+import com.github.mitrakumarsujan.formmodel.model.form.OptionField;
 
 /**
  * @author Sujan Kumar Mitra

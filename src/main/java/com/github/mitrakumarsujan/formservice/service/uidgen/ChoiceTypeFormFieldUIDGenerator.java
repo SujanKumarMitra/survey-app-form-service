@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formservice.model.form.ChoiceTypeFormField;
-import com.github.mitrakumarsujan.formservice.model.form.OptionField;
+import com.github.mitrakumarsujan.formmodel.model.form.ChoiceTypeFormField;
+import com.github.mitrakumarsujan.formmodel.model.form.OptionField;
 
 /**
  * @author Sujan Kumar Mitra

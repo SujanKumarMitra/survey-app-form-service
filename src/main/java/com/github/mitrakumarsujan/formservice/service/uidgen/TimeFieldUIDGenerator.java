@@ -3,7 +3,7 @@ package com.github.mitrakumarsujan.formservice.service.uidgen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formservice.model.form.TimeField;
+import com.github.mitrakumarsujan.formmodel.model.form.TimeField;
 
 /**
  * @author Sujan Kumar Mitra
@@ -13,10 +13,10 @@ import com.github.mitrakumarsujan.formservice.model.form.TimeField;
 public class TimeFieldUIDGenerator implements UIDGenerator<TimeField> {
 
 	@Autowired
-	private PatternFormFieldUIDGenerator delegator;
+	private PatternedFormFieldUIDGenerator delegator;
 
 	@Override
-	public String generate(TimeField timeField) {
+	public String generate(com.github.mitrakumarsujan.formmodel.model.form.TimeField timeField) {
 		return delegator.generate(timeField);
 	}
 

@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.github.mitrakumarsujan.formservice.model.form.CheckBoxField;
-import com.github.mitrakumarsujan.formservice.model.form.DateField;
-import com.github.mitrakumarsujan.formservice.model.form.FormField;
-import com.github.mitrakumarsujan.formservice.model.form.RadioButtonField;
-import com.github.mitrakumarsujan.formservice.model.form.TextBoxField;
-import com.github.mitrakumarsujan.formservice.model.form.TimeField;
+import com.github.mitrakumarsujan.formmodel.model.form.CheckBoxField;
+import com.github.mitrakumarsujan.formmodel.model.form.DateField;
+import com.github.mitrakumarsujan.formmodel.model.form.FormField;
+import com.github.mitrakumarsujan.formmodel.model.form.RadioButtonField;
+import com.github.mitrakumarsujan.formmodel.model.form.TextBoxField;
+import com.github.mitrakumarsujan.formmodel.model.form.TimeField;
 
 /**
  * @author Sujan Kumar Mitra

@@ -3,7 +3,7 @@ package com.github.mitrakumarsujan.formservice.service.uidgen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formservice.model.form.DateField;
+import com.github.mitrakumarsujan.formmodel.model.form.DateField;
 
 /**
  * @author Sujan Kumar Mitra
@@ -13,7 +13,7 @@ import com.github.mitrakumarsujan.formservice.model.form.DateField;
 public class DateFieldUIDGenerator implements UIDGenerator<DateField> {
 
 	@Autowired
-	private PatternFormFieldUIDGenerator delegator;
+	private PatternedFormFieldUIDGenerator delegator;
 
 	@Override
 	public String generate(DateField dateField) {

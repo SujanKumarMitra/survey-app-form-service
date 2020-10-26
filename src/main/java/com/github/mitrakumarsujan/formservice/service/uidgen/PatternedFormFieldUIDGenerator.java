@@ -3,14 +3,14 @@ package com.github.mitrakumarsujan.formservice.service.uidgen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formservice.model.form.PatternedFormField;
+import com.github.mitrakumarsujan.formmodel.model.form.PatternedFormField;
 
 /**
  * @author Sujan Kumar Mitra
  * @since 2020-10-25
  */
 @Component
-public class PatternFormFieldUIDGenerator implements UIDGenerator<PatternedFormField> {
+public class PatternedFormFieldUIDGenerator implements UIDGenerator<PatternedFormField> {
 
 	@Autowired
 	private HashFunction hashFunction;

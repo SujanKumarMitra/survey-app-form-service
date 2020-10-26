@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
-import com.github.mitrakumarsujan.formservice.model.form.Form;
+import com.github.mitrakumarsujan.formmodel.model.form.Form;
 
 /**
  * @author Sujan Kumar Mitra

@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.mitrakumarsujan.formservice.model.form.Form;
-import com.github.mitrakumarsujan.formservice.model.form.FormTemplate;
-import com.github.mitrakumarsujan.formservice.model.response.RestSuccessResponse;
-import com.github.mitrakumarsujan.formservice.model.response.success.RestSuccessResponseBuilder;
-import com.github.mitrakumarsujan.formservice.model.response.success.RestSuccessResponseBuilderFactory;
+import com.github.mitrakumarsujan.formmodel.model.form.Form;
+import com.github.mitrakumarsujan.formmodel.model.form.FormTemplate;
+import com.github.mitrakumarsujan.formmodel.model.response.RestSuccessResponse;
+import com.github.mitrakumarsujan.formmodel.model.response.success.RestSuccessResponseBuilder;
+import com.github.mitrakumarsujan.formmodel.model.response.success.RestSuccessResponseBuilderFactory;
 import com.github.mitrakumarsujan.formservice.service.form.FormService;
+
 
 @RestController
 @RequestMapping("/v1/form")
