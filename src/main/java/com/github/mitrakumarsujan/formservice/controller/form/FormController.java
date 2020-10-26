@@ -30,13 +30,13 @@ public class FormController {
 	private RestSuccessResponseBuilderFactory responseBuilderFactory;
 
 	@PostMapping
-	public ResponseEntity<RestSuccessResponse<Form>> serialized(@RequestBody @Valid FormTemplate template,
+	public ResponseEntity<RestSuccessResponse<Form>> createForm(@RequestBody @Valid FormTemplate template,
 			HttpServletRequest request) {
 		Form createdForm = formService.createForm(template, request);
 		return getResponseEntity(createdForm);
 	}
 
-	private String getMessage() {
+	private String getSuccessMessage() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Form successfully created.");
 		sb.append(" Use the uids when submitting responses.");
@@ -50,7 +50,7 @@ public class FormController {
 
 	private ResponseEntity<RestSuccessResponse<Form>> getResponseEntity(Form createdForm) {
 		return getBuilder()	.withStatus(HttpStatus.CREATED)
-							.withMessage(getMessage())
+							.withMessage(getSuccessMessage())
 							.withData(createdForm)
 							.build()
 							.toResponseEntity();
