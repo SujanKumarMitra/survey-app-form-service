@@ -12,4 +12,6 @@ import com.github.mitrakumarsujan.formmodel.model.form.FormTemplate;
 public interface FormService {
 
 	Form createForm(FormTemplate template, HttpServletRequest request);
+
+	Form getForm(String formUID);
 }

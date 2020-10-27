@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.formservice.controller.form;
+package com.github.mitrakumarsujan.formservice.controller;
 
 import java.time.ZoneId;
 

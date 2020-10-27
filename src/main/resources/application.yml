@@ -1,1 +1,6 @@
-
+spring:
+  application:
+    name: form-service
+    service-endpoints:
+      data-storage-service: http://localhost:8081/
+    

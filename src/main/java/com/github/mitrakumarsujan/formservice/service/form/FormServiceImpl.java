@@ -15,6 +15,7 @@ import com.github.mitrakumarsujan.formmodel.model.form.FormTemplate;
 import com.github.mitrakumarsujan.formmodel.model.form.ImmutableForm;
 import com.github.mitrakumarsujan.formmodel.model.form.MutableForm;
 import com.github.mitrakumarsujan.formmodel.model.form.OptionField;
+import com.github.mitrakumarsujan.formservice.dao.FormDao;
 import com.github.mitrakumarsujan.formservice.service.keygen.KeyGeneratorService;
 import com.github.mitrakumarsujan.formservice.service.uidgen.UIDGeneratorService;
 
@@ -29,6 +30,8 @@ public class FormServiceImpl implements FormService {
 	private UIDGeneratorService uidGeneratorService;
 	@Autowired
 	private KeyGeneratorService keyGeneratorService;
+	@Autowired
+	private FormDao formDao;
 
 	@Override
 	public Form createForm(FormTemplate template, HttpServletRequest request) {
@@ -44,7 +47,15 @@ public class FormServiceImpl implements FormService {
 		form.setUid(formUID);
 		form.setKey(formKey);
 
-		return new ImmutableForm(form);
+		Form createdForm = new ImmutableForm(form);
+		createdForm = formDao.save(form);
+		
+		return createdForm;
+	}
+
+	@Override
+	public Form getForm(String formUID) {
+		return formDao.find(formUID);
 	}
 
 	private void setUIDs(FormTemplate template, HttpServletRequest request) {
