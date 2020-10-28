@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +16,7 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
 import com.github.mitrakumarsujan.formmodel.model.response.RestSuccessResponse;
 import com.github.mitrakumarsujan.formmodel.model.response.success.RestSuccessResponseBuilder;
 import com.github.mitrakumarsujan.formmodel.model.response.success.RestSuccessResponseBuilderFactory;
+import com.github.mitrakumarsujan.formservice.service.FormResponseService;
 
 /**
  * @author Sujan Kumar Mitra
@@ -29,12 +29,16 @@ public class ResponseController {
 	@Autowired
 	private RestSuccessResponseBuilderFactory responseBuilderFactory;
 
-	@PostMapping("/{formUid}")
-	public ResponseEntity<RestSuccessResponse<FormResponse>> fun(ZoneId localeZoneId,
-			@PathVariable(name = "formUid", required = true) String formUid,
+	@Autowired
+	private FormResponseService formResponseService;
+
+	@PostMapping
+	public ResponseEntity<RestSuccessResponse<FormResponse>> submit(ZoneId localeZoneId,
 			@RequestBody @Valid FormResponse response) {
 
 		setZoneIdIfAbsent(response, localeZoneId);
+
+		formResponseService.submit(response);
 
 		return getBuilder()	.withData(response)
 							.withStatus(HttpStatus.CREATED)

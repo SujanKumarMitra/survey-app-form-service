@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -26,26 +28,37 @@ public class FormFieldUIDGeneratorFactory {
 	@Autowired
 	private ApplicationContext context;
 
-	Map<Class<? extends FormField>, UIDGenerator<? extends FormField>> instanceMap;
+	private Map<Class<? extends FormField>, UIDGenerator<? extends FormField>> instanceMap;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(FormFieldUIDGeneratorFactory.class);
+
+	public FormFieldUIDGeneratorFactory() {
+		this.instanceMap = new HashMap<>();
+	}
 
 	@SuppressWarnings("unchecked")
 	public <X extends FormField> UIDGenerator<X> getGenerator(Class<? extends X> classType) {
 		return (UIDGenerator<X>) instanceMap.get(classType);
 	}
 
+	public <X extends FormField> void registerGenerator(Class<? extends X> fieldType,
+			UIDGenerator<? extends X> uidGenerator) {
+		instanceMap.put(fieldType, uidGenerator);
+		LOGGER.info("{} registered for {}", uidGenerator.getClass().getSimpleName(), fieldType.getSimpleName());
+	}
+
 	private void initMap() {
-		instanceMap = new HashMap<>();
-		instanceMap.put(CheckBoxField.class, getInstance(CheckBoxUIDGenerator.class));
-		instanceMap.put(DateField.class, getInstance(DateFieldUIDGenerator.class));
-		instanceMap.put(TimeField.class, getInstance(TimeFieldUIDGenerator.class));
-		instanceMap.put(TextBoxField.class, getInstance(TextBoxUIDGenerator.class));
-		instanceMap.put(RadioButtonField.class, getInstance(RadioButtonUIDGenerator.class));
+		registerGenerator(CheckBoxField.class, getInstance(CheckBoxUIDGenerator.class));
+		registerGenerator(DateField.class, getInstance(DateFieldUIDGenerator.class));
+		registerGenerator(TimeField.class, getInstance(TimeFieldUIDGenerator.class));
+		registerGenerator(TextBoxField.class, getInstance(TextBoxUIDGenerator.class));
+		registerGenerator(RadioButtonField.class, getInstance(RadioButtonUIDGenerator.class));
 	}
 
 	<X> X getInstance(Class<? extends X> classType) {
 		return context.getBean(classType);
 	}
-	
+
 	@PostConstruct
 	private void setUp() {
 		initMap();
