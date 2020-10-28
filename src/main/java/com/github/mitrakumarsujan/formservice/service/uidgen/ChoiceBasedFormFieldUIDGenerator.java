@@ -1,6 +1,7 @@
 package com.github.mitrakumarsujan.formservice.service.uidgen;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,15 +22,15 @@ public class ChoiceBasedFormFieldUIDGenerator implements UIDGenerator<ChoiceBase
 	@Override
 	public String generate(ChoiceBasedFormField formField) {
 
-		long time;
+		String uuid;
 		synchronized (this) {
-			time = System.currentTimeMillis();
+			uuid = UUID.randomUUID().toString();
 		}
 		String question = formField.getQuestion();
 		boolean required = formField.isRequired();
 		List<? extends OptionField> options = formField.getOptions();
 
-		return hashFunction.toHash(time, question, required, options);
+		return hashFunction.toHash(uuid, question, required, options);
 	}
 
 }

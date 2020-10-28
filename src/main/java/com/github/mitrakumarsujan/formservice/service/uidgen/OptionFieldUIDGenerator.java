@@ -1,5 +1,7 @@
 package com.github.mitrakumarsujan.formservice.service.uidgen;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,12 +20,12 @@ public class OptionFieldUIDGenerator implements UIDGenerator<OptionField> {
 	@Override
 	public String generate(OptionField option) {
 
-		long time;
+		String uuid;
 		synchronized (this) {
-			time = System.currentTimeMillis();
+			uuid = UUID.randomUUID().toString();
 		}
 		String text = option.getText();
-		return hashFunction.toHash(time, text);
+		return hashFunction.toHash(uuid, text);
 	}
 
 }

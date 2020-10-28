@@ -1,5 +1,7 @@
 package com.github.mitrakumarsujan.formservice.service.uidgen;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,15 +20,15 @@ public class PatternBasedFormFieldUIDGenerator implements UIDGenerator<PatternBa
 	@Override
 	public String generate(PatternBasedFormField formField) {
 
-		long time;
+		String uuid;
 		synchronized (this) {
-			time = System.currentTimeMillis();
+			uuid = UUID.randomUUID().toString();
 		}
 		String question = formField.getQuestion();
 		boolean required = formField.isRequired();
 		String pattern = formField.getPattern();
 
-		return hashFunction.toHash(time, question, required, pattern);
+		return hashFunction.toHash(uuid, question, required, pattern);
 	}
 
 }

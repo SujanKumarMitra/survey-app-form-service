@@ -19,12 +19,11 @@ public class FormUIDGeneratorService {
 	private HashFunction hashFunction;
 
 	public String generate(Form form, HttpServletRequest request) {
-		Object[] uids = form.getTemplate()
+		String[] uids = form.getTemplate()
 							.getFields()
 							.parallelStream()
 							.map(FormField::getId)
-							.map(s -> (Object) s)
-							.toArray(Object[]::new);
+							.toArray(String[]::new);
 		return hashFunction.toHash(uids);
 	}
 }
