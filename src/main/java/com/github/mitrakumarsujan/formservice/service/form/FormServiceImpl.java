@@ -87,7 +87,7 @@ public class FormServiceImpl implements FormService {
 
 	private void setUIDInField(FormField formField, HttpServletRequest request) {
 		String uid = uidGeneratorService.generate(formField, request);
-		formField.setUID(uid);
+		formField.setId(uid);
 	}
 
 }

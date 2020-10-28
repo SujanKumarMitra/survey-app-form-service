@@ -23,7 +23,7 @@ public class FormResponseServiceImpl implements FormResponseService {
 
 	@Override
 	public void submit(FormResponse response) {
-		Form form = formService.getForm(response.getFormUID());
+		Form form = formService.getForm(response.getFormId());
 		boolean validate = responseValidationService.validate(form, response);
 		System.out.println(validate);
 	}

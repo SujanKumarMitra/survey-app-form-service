@@ -35,14 +35,14 @@ public class FormResponseValidationServiceImpl implements FormResponseValidation
 
 	private Map<String, Response> getResponseMap(FormResponse formResponse) {
 		Collection<Response> responses = formResponse.getResponses();
-		return toIdentityMap(responses, Response::getQuestionUID);
+		return toIdentityMap(responses, Response::getQuestionId);
 	}
 
 	private Map<String, FormField> getFieldMap(Form form) {
 		// @formatter:off
 		List<FormField> fields = form.getTemplate().getFields();
 		// @formatter:on
-		return toIdentityMap(fields, FormField::getUID);
+		return toIdentityMap(fields, FormField::getId);
 	}
 
 	private boolean validateFields(Map<String, FormField> fieldMap, Map<String, Response> responseMap) {
@@ -52,7 +52,7 @@ public class FormResponseValidationServiceImpl implements FormResponseValidation
 	}
 
 	private boolean validate(Response response, Map<String, FormField> fieldMap) {
-		FormField formField = fieldMap.get(response.getQuestionUID());
+		FormField formField = fieldMap.get(response.getQuestionId());
 		FormFieldValidator<FormField, Response> validator = validatorFactory.getValidator(formField.getClass());
 
 		return validator.validate(formField, response);
@@ -62,7 +62,7 @@ public class FormResponseValidationServiceImpl implements FormResponseValidation
 		return fieldMap	.values()
 						.parallelStream()
 						.filter(FormField::isRequired)
-						.allMatch(field -> responseMap.containsKey(field.getUID()));
+						.allMatch(field -> responseMap.containsKey(field.getId()));
 	}
 
 	private <K, V> Map<K, V> toIdentityMap(Collection<? extends V> collection,

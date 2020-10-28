@@ -22,7 +22,7 @@ public class FormUIDGeneratorService {
 		Object[] uids = form.getTemplate()
 							.getFields()
 							.parallelStream()
-							.map(FormField::getUID)
+							.map(FormField::getId)
 							.map(s -> (Object) s)
 							.toArray(Object[]::new);
 		return hashFunction.toHash(uids);
