@@ -10,7 +10,7 @@ import org.springframework.util.ObjectUtils;
 @Service
 public class HashFunctionImpl implements HashFunction {
 	@Override
-	public String toHash(Object o) {
+	public <T> String toHash(T o) {
 		return Integer.toHexString(ObjectUtils.nullSafeHashCode(o));
 	}
 

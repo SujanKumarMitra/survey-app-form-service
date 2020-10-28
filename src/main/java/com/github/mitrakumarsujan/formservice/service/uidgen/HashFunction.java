@@ -6,8 +6,9 @@ package com.github.mitrakumarsujan.formservice.service.uidgen;
  */
 public interface HashFunction {
 
-	String toHash(Object o);
+	<T> String toHash(T o);
 
-	String toHash(Object... o);
+	@SuppressWarnings("unchecked")
+	<T> String toHash(T... o);
 
 }
