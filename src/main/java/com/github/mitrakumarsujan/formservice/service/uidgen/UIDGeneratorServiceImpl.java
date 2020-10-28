@@ -17,27 +17,27 @@ import com.github.mitrakumarsujan.formmodel.model.form.OptionField;
 public class UIDGeneratorServiceImpl implements UIDGeneratorService {
 
 	@Autowired
-	private FormUIDGeneratorService formUIDGeneratorDelegetee;
+	private FormUIDGeneratorService formUIDGeneratorDelegatee;
 
 	@Autowired
-	private FormFieldUIDGeneratorService formFieldUIDGeneratorDelegetee;
+	private FormFieldUIDGeneratorService formFieldUIDGeneratorDelegatee;
 
 	@Autowired
-	private OptionFieldUIDGeneratorService optionFieldUIDGeneratorDelegetee;
+	private OptionFieldUIDGeneratorService optionFieldUIDGeneratorDelegatee;
 
 	@Override
 	public String generate(Form form, HttpServletRequest request) {
-		return formUIDGeneratorDelegetee.generate(form, request);
+		return formUIDGeneratorDelegatee.generate(form, request);
 	}
 
 	@Override
 	public String generate(FormField formField, HttpServletRequest request) {
-		return formFieldUIDGeneratorDelegetee.generate(formField, request);
+		return formFieldUIDGeneratorDelegatee.generate(formField, request);
 	}
 
 	@Override
 	public String generate(OptionField optionField, HttpServletRequest request) {
-		return optionFieldUIDGeneratorDelegetee.generate(optionField, request);
+		return optionFieldUIDGeneratorDelegatee.generate(optionField, request);
 	}
 
 }
