@@ -44,7 +44,7 @@ public class FormServiceImpl implements FormService {
 		String formKey = keyGeneratorService.generate(form, request);
 		String formUID = uidGeneratorService.generate(form, request);
 
-		form.setUid(formUID);
+		form.setId(formUID);
 		form.setKey(formKey);
 
 		Form createdForm = new ImmutableForm(form);
@@ -82,7 +82,7 @@ public class FormServiceImpl implements FormService {
 
 	private void setUIDInField(OptionField optionField, HttpServletRequest request) {
 		String uid = uidGeneratorService.generate(optionField, request);
-		optionField.setUID(uid);
+		optionField.setId(uid);
 	}
 
 	private void setUIDInField(FormField formField, HttpServletRequest request) {

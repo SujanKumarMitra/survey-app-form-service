@@ -22,7 +22,7 @@ public class DefaultMultipleChoiceBasedFormFieldValidator
 
 		Set<String> uids = field.getOptions()
 								.parallelStream()
-								.map(OptionField::getUID)
+								.map(OptionField::getId)
 								.collect(Collectors.toSet());
 
 		return response	.getOptionUIDs()

@@ -18,7 +18,7 @@ public class DefaultSingleChoiceBasedFormFieldValidator implements SingleChoiceB
 		String uid = response.getOptionUID();
 		return field.getOptions()
 					.parallelStream()
-					.map(OptionField::getUID)
+					.map(OptionField::getId)
 					.anyMatch(optionUid -> optionUid.contentEquals(uid));
 	}
 }
