@@ -3,8 +3,6 @@ package com.github.mitrakumarsujan.formservice.service.validation;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +11,7 @@ import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
+import com.github.mitrakumarsujan.formmodel.model.util.CollectorUtils;
 import com.github.mitrakumarsujan.formservice.service.validation.validator.FormFieldValidator;
 import com.github.mitrakumarsujan.formservice.service.validation.validator.FormFieldValidatorFactory;
 
@@ -26,6 +25,9 @@ public class FormResponseValidationServiceImpl implements FormResponseValidation
 	@Autowired
 	private FormFieldValidatorFactory validatorFactory;
 
+	@Autowired
+	private CollectorUtils collectorUtils;
+
 	@Override
 	public boolean validate(Form form, FormResponse formResponse) {
 		Map<String, FormField> fieldMap = getFieldMap(form); // map of FormField::getUID, FormField
@@ -35,14 +37,14 @@ public class FormResponseValidationServiceImpl implements FormResponseValidation
 
 	private Map<String, Response> getResponseMap(FormResponse formResponse) {
 		Collection<Response> responses = formResponse.getResponses();
-		return toIdentityMap(responses, Response::getQuestionId);
+		return collectorUtils.toIdentityMap(responses, Response::getQuestionId);
 	}
 
 	private Map<String, FormField> getFieldMap(Form form) {
 		// @formatter:off
 		List<FormField> fields = form.getTemplate().getFields();
 		// @formatter:on
-		return toIdentityMap(fields, FormField::getId);
+		return collectorUtils.toIdentityMap(fields, FormField::getId);
 	}
 
 	private boolean validateFields(Map<String, FormField> fieldMap, Map<String, Response> responseMap) {
@@ -63,13 +65,6 @@ public class FormResponseValidationServiceImpl implements FormResponseValidation
 						.parallelStream()
 						.filter(FormField::isRequired)
 						.allMatch(field -> responseMap.containsKey(field.getId()));
-	}
-
-	private <K, V> Map<K, V> toIdentityMap(Collection<? extends V> collection,
-			Function<? super V, ? extends K> keyMapper) {
-
-		return collection	.parallelStream()
-							.collect(Collectors.toUnmodifiableMap(keyMapper, Function.identity()));
 	}
 
 }
