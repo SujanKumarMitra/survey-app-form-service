@@ -32,4 +32,9 @@ public class DateFieldValidator implements PatternBasedFormFieldValidator<DateFi
 		}
 	}
 
+	@Override
+	public String getErrorMessage() {
+		return "Invalid date pattern";
+	}
+
 }

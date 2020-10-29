@@ -30,5 +30,10 @@ public class TimeFieldValidator implements PatternBasedFormFieldValidator<DateFi
 			return false;
 		}
 	}
+	
+	@Override
+	public String getErrorMessage() {
+		return "Invalid time pattern";
+	}
 
 }

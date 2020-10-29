@@ -25,4 +25,9 @@ public class TextBoxFieldValidator implements FormFieldValidator<TextBoxField, R
 		}
 	}
 
+	@Override
+	public String getErrorMessage() {
+		return "answer either empty or blank";
+	}
+
 }

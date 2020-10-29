@@ -21,4 +21,11 @@ public class CheckBoxFieldValidator implements MultipleChoiceBasedFormFieldValid
 		return delegatee.validate(field, response);
 	}
 
+	@Override
+	public String getErrorMessage() {
+		return "option id(s) not matching";
+	}
+	
+	
+
 }
