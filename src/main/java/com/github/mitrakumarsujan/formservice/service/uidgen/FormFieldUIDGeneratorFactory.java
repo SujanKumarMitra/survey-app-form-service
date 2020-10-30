@@ -47,21 +47,14 @@ public class FormFieldUIDGeneratorFactory {
 		LOGGER.info("{} registered for {}", uidGenerator.getClass().getSimpleName(), fieldType.getSimpleName());
 	}
 
-	private void initMap() {
-		registerGenerator(CheckBoxField.class, getInstance(CheckBoxUIDGenerator.class));
-		registerGenerator(DateField.class, getInstance(DateFieldUIDGenerator.class));
-		registerGenerator(TimeField.class, getInstance(TimeFieldUIDGenerator.class));
-		registerGenerator(TextBoxField.class, getInstance(TextBoxUIDGenerator.class));
-		registerGenerator(RadioButtonField.class, getInstance(RadioButtonUIDGenerator.class));
-	}
-
-	<X> X getInstance(Class<? extends X> classType) {
-		return context.getBean(classType);
-	}
 
 	@PostConstruct
-	private void setUp() {
-		initMap();
+	private void registerKnownGenerators() {
+		registerGenerator(CheckBoxField.class, context.getBean(CheckBoxUIDGenerator.class));
+		registerGenerator(DateField.class, context.getBean(DateFieldUIDGenerator.class));
+		registerGenerator(TimeField.class, context.getBean(TimeFieldUIDGenerator.class));
+		registerGenerator(TextBoxField.class, context.getBean(TextBoxUIDGenerator.class));
+		registerGenerator(RadioButtonField.class, context.getBean(RadioButtonUIDGenerator.class));
 	}
 
 }

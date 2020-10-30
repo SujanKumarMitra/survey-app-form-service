@@ -7,4 +7,5 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.MultipleChoiceBas
  * @author Sujan Kumar Mitra
  * @since 2020-10-28
  */
-public interface MultipleChoiceBasedFormFieldValidator<F extends FormField> extends FormFieldValidator<F, MultipleChoiceBasedResponse> {}
+public interface MultipleChoiceBasedFormFieldValidator<F extends FormField>
+		extends ChoiceBasedFormFieldValidator<F, MultipleChoiceBasedResponse> {}

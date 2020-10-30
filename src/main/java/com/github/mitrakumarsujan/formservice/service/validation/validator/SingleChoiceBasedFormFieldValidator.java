@@ -7,4 +7,5 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.SingleChoiceBased
  * @author Sujan Kumar Mitra
  * @since 2020-10-28
  */
-public interface SingleChoiceBasedFormFieldValidator<F extends FormField> extends FormFieldValidator<F, SingleChoiceBasedResponse> {}
+public interface SingleChoiceBasedFormFieldValidator<F extends FormField>
+		extends ChoiceBasedFormFieldValidator<F, SingleChoiceBasedResponse> {}

@@ -38,13 +38,12 @@ public class FormResponseServiceImpl implements FormResponseService {
 //			TODO
 		}
 
-		// rearrage response with FormField sequence order
-		rearrange(response, form);
+		rearrangeResponseFields(response, form);
 		
 //		TODO
 	}
 
-	private void rearrange(FormResponse response, Form form) {
+	private void rearrangeResponseFields(FormResponse response, Form form) {
 		Map<String, Integer> indexedMap = getIndexedMap(form);
 
 		List<Response> responses = response.getResponses();

@@ -30,4 +30,24 @@ public class DefaultMultipleChoiceBasedFormFieldValidator
 						.allMatch(uids::contains);
 
 	}
+
+	@Override
+	public void formatResponse(ChoiceBasedFormField field, MultipleChoiceBasedResponse response) {
+
+		Set<String> optionIds = response.getOptionIds()
+										.stream()
+										.collect(Collectors.toSet());
+
+		String answer = field	.getOptions()
+								.stream()
+								.filter(optionField -> isOptionSelected(optionIds, optionField))
+								.map(OptionField::getText)
+								.collect(Collectors.joining(",", "\"", "\""));
+
+		response.setAnswer(answer);
+	}
+
+	private boolean isOptionSelected(Set<String> optionIds, OptionField optionField) {
+		return optionIds.contains(optionField.getId());
+	}
 }

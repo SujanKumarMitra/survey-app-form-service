@@ -14,16 +14,21 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.SingleChoiceBased
 public class RadioButtonFieldValidator implements SingleChoiceBasedFormFieldValidator<RadioButtonField> {
 
 	@Autowired
-	private DefaultSingleChoiceBasedFormFieldValidator delegetee;
+	private DefaultSingleChoiceBasedFormFieldValidator delegatee;
 
 	@Override
 	public boolean validate(RadioButtonField field, SingleChoiceBasedResponse response) {
-		return delegetee.validate(field, response);
+		return delegatee.validate(field, response);
 	}
 	
 	@Override
 	public String getErrorMessage() {
 		return "option id not matching";
+	}
+
+	@Override
+	public void formatResponse(RadioButtonField field, SingleChoiceBasedResponse response) {
+		delegatee.formatResponse(field, response);
 	}
 
 }

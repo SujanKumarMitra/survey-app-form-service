@@ -35,9 +35,8 @@ public class ResponseController {
 	private FormResponseService formResponseService;
 
 	@PostMapping
-	public ResponseEntity<RestSuccessResponse<FormResponse>> submit(
-			ZoneId localeZoneId,
-			@RequestParam(name = "zoneId",required = false) ZoneId clientZoneId,
+	public ResponseEntity<RestSuccessResponse<FormResponse>> submit(ZoneId localeZoneId,
+			@RequestParam(name = "zoneId", required = false) ZoneId clientZoneId,
 			@RequestBody @Valid FormResponse response) {
 
 		setTimestamp(localeZoneId, clientZoneId, response);
@@ -46,8 +45,13 @@ public class ResponseController {
 
 		return getBuilder()	.withData(response)
 							.withStatus(HttpStatus.CREATED)
+							.withMessage(getSuccessMessage())
 							.build()
 							.toResponseEntity();
+	}
+
+	private String getSuccessMessage() {
+		return "Response submitted successfully.";
 	}
 
 	private void setTimestamp(ZoneId localeZoneId, ZoneId clientZoneId, FormResponse response) {

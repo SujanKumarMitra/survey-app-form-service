@@ -15,7 +15,7 @@ public class CheckBoxFieldValidator implements MultipleChoiceBasedFormFieldValid
 
 	@Autowired
 	private DefaultMultipleChoiceBasedFormFieldValidator delegatee;
-	
+
 	@Override
 	public boolean validate(CheckBoxField field, MultipleChoiceBasedResponse response) {
 		return delegatee.validate(field, response);
@@ -25,7 +25,10 @@ public class CheckBoxFieldValidator implements MultipleChoiceBasedFormFieldValid
 	public String getErrorMessage() {
 		return "option id(s) not matching";
 	}
-	
-	
+
+	@Override
+	public void formatResponse(CheckBoxField field, MultipleChoiceBasedResponse response) {
+		delegatee.formatResponse(field, response);
+	}
 
 }

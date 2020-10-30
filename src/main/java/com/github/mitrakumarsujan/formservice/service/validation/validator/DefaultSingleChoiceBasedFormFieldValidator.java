@@ -11,7 +11,8 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.SingleChoiceBased
  * @since 2020-10-28
  */
 @Component
-public class DefaultSingleChoiceBasedFormFieldValidator implements SingleChoiceBasedFormFieldValidator<ChoiceBasedFormField> {
+public class DefaultSingleChoiceBasedFormFieldValidator
+		implements SingleChoiceBasedFormFieldValidator<ChoiceBasedFormField> {
 
 	@Override
 	public boolean validate(ChoiceBasedFormField field, SingleChoiceBasedResponse response) {
@@ -21,4 +22,24 @@ public class DefaultSingleChoiceBasedFormFieldValidator implements SingleChoiceB
 					.map(OptionField::getId)
 					.anyMatch(optionUid -> optionUid.contentEquals(uid));
 	}
+
+	@Override
+	public void formatResponse(ChoiceBasedFormField field, SingleChoiceBasedResponse response) {
+
+		String optionId = response.getOptionId();
+
+		field	.getOptions()
+				.parallelStream()
+				.filter(optionField -> isSelected(optionField, optionId))
+				.map(OptionField::getText)
+				.findFirst()
+				.ifPresent(text -> response.setAnswer(text));
+
+	}
+
+	private boolean isSelected(OptionField field, String optionId) {
+		return field.getId()
+					.contentEquals(optionId);
+	}
+
 }
