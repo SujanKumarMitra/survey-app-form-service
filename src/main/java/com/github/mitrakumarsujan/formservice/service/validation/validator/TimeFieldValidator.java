@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formmodel.model.form.DateField;
+import com.github.mitrakumarsujan.formmodel.model.form.TimeField;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
 
 /**
@@ -14,10 +14,10 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
  * @since 2020-10-28
  */
 @Component
-public class TimeFieldValidator implements PatternBasedFormFieldValidator<DateField> {
+public class TimeFieldValidator implements PatternBasedFormFieldValidator<TimeField> {
 
 	@Override
-	public boolean validate(DateField field, Response response) {
+	public boolean validate(TimeField field, Response response) {
 		String pattern = field.getPattern();
 		String input = response.getAnswer();
 

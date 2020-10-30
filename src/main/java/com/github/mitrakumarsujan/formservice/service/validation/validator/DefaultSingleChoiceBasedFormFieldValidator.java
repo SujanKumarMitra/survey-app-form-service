@@ -15,7 +15,7 @@ public class DefaultSingleChoiceBasedFormFieldValidator implements SingleChoiceB
 
 	@Override
 	public boolean validate(ChoiceBasedFormField field, SingleChoiceBasedResponse response) {
-		String uid = response.getOptionUID();
+		String uid = response.getOptionId();
 		return field.getOptions()
 					.parallelStream()
 					.map(OptionField::getId)

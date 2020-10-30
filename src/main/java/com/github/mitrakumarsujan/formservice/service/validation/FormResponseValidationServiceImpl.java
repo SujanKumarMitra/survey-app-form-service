@@ -1,7 +1,5 @@
 package com.github.mitrakumarsujan.formservice.service.validation;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
-import com.github.mitrakumarsujan.formmodel.model.util.CollectorUtils;
 import com.github.mitrakumarsujan.formservice.service.validation.validator.FormFieldValidator;
 import com.github.mitrakumarsujan.formservice.service.validation.validator.FormFieldValidatorFactory;
 
@@ -26,25 +23,17 @@ public class FormResponseValidationServiceImpl implements FormResponseValidation
 	private FormFieldValidatorFactory validatorFactory;
 
 	@Autowired
-	private CollectorUtils collectorUtils;
+	private FormFieldIdentityMapper formFieldMapper;
+
+	@Autowired
+	private ResponseIdentityMapper responseMapper;
 
 	@Override
 	public boolean validate(Form form, FormResponse formResponse) {
-		Map<String, FormField> fieldMap = getFieldMap(form); // map of FormField::getUID, FormField
-		Map<String, Response> responseMap = getResponseMap(formResponse); // map of Response::getQuestionUID, Response
+		Map<String, FormField> fieldMap = formFieldMapper.apply(form); // map of FormField::getUID, FormField
+		Map<String, Response> responseMap = responseMapper.apply(formResponse); // map of Response::getQuestionUID,
+																				// Response
 		return areAllRequiredPresent(fieldMap, responseMap) && validateFields(fieldMap, responseMap);
-	}
-
-	private Map<String, Response> getResponseMap(FormResponse formResponse) {
-		Collection<Response> responses = formResponse.getResponses();
-		return collectorUtils.toIdentityMap(responses, Response::getQuestionId);
-	}
-
-	private Map<String, FormField> getFieldMap(Form form) {
-		// @formatter:off
-		List<FormField> fields = form.getTemplate().getFields();
-		// @formatter:on
-		return collectorUtils.toIdentityMap(fields, FormField::getId);
 	}
 
 	private boolean validateFields(Map<String, FormField> fieldMap, Map<String, Response> responseMap) {

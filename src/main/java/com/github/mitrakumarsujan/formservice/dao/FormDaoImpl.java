@@ -30,16 +30,17 @@ public class FormDaoImpl implements FormDao {
 	@Override
 	public Form save(Form form) {
 		String baseUrl = properties.getDataStorageServiceUrl();
-		URI uri = getURI(baseUrl, "/v1/store");
+		URI uri = getURI(baseUrl, "/v1/form");
 
 		Form responseForm = getResponse(uri, HttpMethod.POST, form);
 		return responseForm;
 	}
 
 	@Override
+//	@Cacheable
 	public Form find(String formUID) {
 		String baseUrl = properties.getDataStorageServiceUrl();
-		URI uri = getURI(baseUrl, "/v1/store/" + formUID);
+		URI uri = getURI(baseUrl, "/v1/form/" + formUID);
 
 		Form form = getResponse(uri, HttpMethod.GET, null);
 		return form;

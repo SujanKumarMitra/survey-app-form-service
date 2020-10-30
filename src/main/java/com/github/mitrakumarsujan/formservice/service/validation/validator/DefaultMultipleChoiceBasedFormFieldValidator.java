@@ -25,7 +25,7 @@ public class DefaultMultipleChoiceBasedFormFieldValidator
 								.map(OptionField::getId)
 								.collect(Collectors.toSet());
 
-		return response	.getOptionUIDs()
+		return response	.getOptionIds()
 						.parallelStream()
 						.allMatch(uids::contains);
 

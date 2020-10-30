@@ -1,5 +1,6 @@
 package com.github.mitrakumarsujan.formservice.controller;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 import javax.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
@@ -33,10 +35,12 @@ public class ResponseController {
 	private FormResponseService formResponseService;
 
 	@PostMapping
-	public ResponseEntity<RestSuccessResponse<FormResponse>> submit(ZoneId localeZoneId,
+	public ResponseEntity<RestSuccessResponse<FormResponse>> submit(
+			ZoneId localeZoneId,
+			@RequestParam(name = "zoneId",required = false) ZoneId clientZoneId,
 			@RequestBody @Valid FormResponse response) {
 
-		setZoneIdIfAbsent(response, localeZoneId);
+		setTimestamp(localeZoneId, clientZoneId, response);
 
 		formResponseService.submit(response);
 
@@ -46,9 +50,14 @@ public class ResponseController {
 							.toResponseEntity();
 	}
 
-	private void setZoneIdIfAbsent(FormResponse response, ZoneId localeZoneId) {
-		if (response.getZoneId() == null)
-			response.setZoneId(localeZoneId);
+	private void setTimestamp(ZoneId localeZoneId, ZoneId clientZoneId, FormResponse response) {
+		LocalDateTime timestamp;
+		if (clientZoneId == null) {
+			timestamp = LocalDateTime.now(localeZoneId);
+		} else {
+			timestamp = LocalDateTime.now(clientZoneId);
+		}
+		response.setTimestamp(timestamp);
 	}
 
 	private RestSuccessResponseBuilder<FormResponse> getBuilder() {
