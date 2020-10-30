@@ -45,8 +45,8 @@ public class FormResponseValidationServiceImpl implements FormResponseValidation
 	private void formatResponse(Map<String, FormField> fieldMap, Map<String, Response> responseMap) {
 		responseMap	.values()
 					.parallelStream()
-					.filter(this::isChoiceBasedResponse)
-					.map(f -> (ChoiceBasedResponse) f)
+					.filter(r -> r instanceof ChoiceBasedResponse)
+					.map(r -> (ChoiceBasedResponse) r)
 					.forEach(response -> formatResponseFields(response, fieldMap));
 	}
 
@@ -74,11 +74,6 @@ public class FormResponseValidationServiceImpl implements FormResponseValidation
 		FormFieldValidator<FormField, Response> validator = validatorFactory.getValidator(formField.getClass());
 
 		return validator.validate(formField, response);
-	}
-
-	private boolean isChoiceBasedResponse(Response response) {
-
-		return response instanceof ChoiceBasedResponse;
 	}
 
 }
