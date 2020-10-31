@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
 import com.github.mitrakumarsujan.formmodel.model.response.RestSuccessResponse;
-import com.github.mitrakumarsujan.formmodel.model.response.success.RestSuccessResponseBuilder;
 import com.github.mitrakumarsujan.formmodel.model.response.success.RestSuccessResponseBuilderFactory;
 import com.github.mitrakumarsujan.formservice.service.FormResponseService;
 
@@ -26,7 +25,7 @@ import com.github.mitrakumarsujan.formservice.service.FormResponseService;
  */
 @RestController
 @RequestMapping("/v1/submit")
-public class ResponseController {
+public class FormResponseController {
 
 	@Autowired
 	private RestSuccessResponseBuilderFactory responseBuilderFactory;
@@ -43,11 +42,13 @@ public class ResponseController {
 
 		formResponseService.submit(response);
 
-		return getBuilder()	.withData(response)
-							.withStatus(HttpStatus.CREATED)
-							.withMessage(getSuccessMessage())
-							.build()
-							.toResponseEntity();
+
+		return responseBuilderFactory	.getSingleDataBuilder(FormResponse.class)
+										.withData(response)
+										.withMessage(getSuccessMessage())
+										.withStatus(HttpStatus.CREATED)
+										.build()
+										.toResponseEntity();
 	}
 
 	private String getSuccessMessage() {
@@ -64,7 +65,4 @@ public class ResponseController {
 		response.setTimestamp(timestamp);
 	}
 
-	private RestSuccessResponseBuilder<FormResponse> getBuilder() {
-		return responseBuilderFactory.getSingleDataBuilder(FormResponse.class);
-	}
 }

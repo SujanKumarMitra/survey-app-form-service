@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
-import com.github.mitrakumarsujan.formmodel.model.util.CollectorUtils;
+import com.github.mitrakumarsujan.formmodel.util.CollectorUtils;
 
 @Service
 public class FormFieldIdentityMapper implements Function<Form, Map<String, FormField>> {

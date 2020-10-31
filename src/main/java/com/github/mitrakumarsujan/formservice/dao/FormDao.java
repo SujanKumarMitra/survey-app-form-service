@@ -10,6 +10,6 @@ public interface FormDao {
 	
 	Form save(Form form);
 	
-	Form find(String formUID);
+	Form find(String formId);
 	
 }

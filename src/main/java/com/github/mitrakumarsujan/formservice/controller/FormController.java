@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.model.form.FormTemplate;
 import com.github.mitrakumarsujan.formmodel.model.response.RestSuccessResponse;
-import com.github.mitrakumarsujan.formmodel.model.response.success.RestSuccessResponseBuilder;
 import com.github.mitrakumarsujan.formmodel.model.response.success.RestSuccessResponseBuilderFactory;
 import com.github.mitrakumarsujan.formservice.service.form.FormService;
 
@@ -31,19 +30,30 @@ public class FormController {
 	private RestSuccessResponseBuilderFactory responseBuilderFactory;
 
 	@GetMapping("/{formId}")
-	public ResponseEntity<RestSuccessResponse<Form>> getForm
-	(@PathVariable("formId") String formId) {
+	public ResponseEntity<RestSuccessResponse<Form>> getForm(@PathVariable("formId") String formId) {
 
 		Form form = formService.getForm(formId);
 		HttpStatus status = HttpStatus.FOUND;
-		return getResponseEntity(form, status, status.getReasonPhrase());
+
+		return responseBuilderFactory	.getSingleDataBuilder(Form.class)
+										.withStatus(status)
+										.withData(form)
+										.build()
+										.toResponseEntity();
 	}
 
 	@PostMapping
-	public ResponseEntity<RestSuccessResponse<Form>> createForm
-	(@RequestBody @Valid FormTemplate template,HttpServletRequest request) {
+	public ResponseEntity<RestSuccessResponse<Form>> createForm(@RequestBody @Valid FormTemplate template,
+			HttpServletRequest request) {
 		Form createdForm = formService.createForm(template, request);
-		return getResponseEntity(createdForm, HttpStatus.CREATED, getSuccessMessage());
+		HttpStatus status = HttpStatus.CREATED;
+		return responseBuilderFactory	.getSingleDataBuilder(Form.class)
+										.withData(createdForm)
+										.withStatus(status)
+										.withMessage(getSuccessMessage())
+										.build()
+										.toResponseEntity();
+
 	}
 
 	private String getSuccessMessage() {
@@ -52,18 +62,6 @@ public class FormController {
 		sb.append(" Use the uids when submitting responses.");
 		sb.append(" Use the key for collecting responses.");
 		return sb.toString();
-	}
-
-	private ResponseEntity<RestSuccessResponse<Form>> getResponseEntity(Form form, HttpStatus status, String message) {
-		return getBuilder()	.withStatus(status)
-							.withMessage(message)
-							.withData(form)
-							.build()
-							.toResponseEntity();
-	}
-
-	private RestSuccessResponseBuilder<Form> getBuilder() {
-		return responseBuilderFactory.getSingleDataBuilder(Form.class);
 	}
 
 }

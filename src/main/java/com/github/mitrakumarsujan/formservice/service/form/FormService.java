@@ -13,5 +13,5 @@ public interface FormService {
 
 	Form createForm(FormTemplate template, HttpServletRequest request);
 
-	Form getForm(String formUID);
+	Form getForm(String formId);
 }

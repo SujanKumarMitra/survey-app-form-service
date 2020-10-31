@@ -54,8 +54,8 @@ public class FormServiceImpl implements FormService {
 	}
 
 	@Override
-	public Form getForm(String formUID) {
-		return formDao.find(formUID);
+	public Form getForm(String formId) {
+		return formDao.find(formId);
 	}
 
 	private void setUIDs(FormTemplate template, HttpServletRequest request) {

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
-import com.github.mitrakumarsujan.formmodel.model.util.CollectorUtils;
+import com.github.mitrakumarsujan.formmodel.util.CollectorUtils;
 
 @Service
 public class ResponseIdentityMapper implements Function<FormResponse, Map<String,Response>> {
