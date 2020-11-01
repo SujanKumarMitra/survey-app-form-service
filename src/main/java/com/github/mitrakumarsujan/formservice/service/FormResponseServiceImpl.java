@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,15 +35,24 @@ public class FormResponseServiceImpl implements FormResponseService {
 	@Autowired
 	private FormResponseValidationService responseValidationService;
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(FormResponseServiceImpl.class);
+	
 	@Override
 	public void submit(FormResponse response) {
-		Form form = formService.getForm(response.getFormId());
+		String formId = response.getFormId();
+		
+		Form form = formService.getForm(formId);
+		LOGGER.info("validating responses for form '{}'", formId);
 		boolean validate = responseValidationService.validate(form, response);
 		if (!validate) {
 //			TODO throw exception
 		}
+		LOGGER.info("responses validated for form '{}'", formId);
+		LOGGER.info("rearranging response fields for form '{}'", formId);
 
-		rearrangeResponseFields(response, form);
+		rearrangeResponseFields(response, form);		
+
+		LOGGER.info("response fields rearranged for form '{}'", formId);
 		formResponseDao.save(response);
 	}
 

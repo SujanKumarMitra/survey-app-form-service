@@ -24,7 +24,7 @@ import com.github.mitrakumarsujan.formservice.service.FormResponseService;
  * @since 2020-10-26
  */
 @RestController
-@RequestMapping("/v1/formResponse")
+@RequestMapping("/v1/response")
 public class FormResponseController {
 
 	@Autowired
