@@ -38,6 +38,8 @@ public class FormResponseValidationServiceImpl implements FormResponseValidation
 		boolean res = areAllRequiredPresent(fieldMap, responseMap) && validateFields(fieldMap, responseMap);
 		if (res) {
 			formatResponse(fieldMap, responseMap);
+		} else {
+//			TODO throw validation exception
 		}
 		return res;
 	}

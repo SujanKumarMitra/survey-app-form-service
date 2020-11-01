@@ -48,7 +48,7 @@ public class FormServiceImpl implements FormService {
 		form.setKey(formKey);
 
 		Form createdForm = new ImmutableForm(form);
-		createdForm = formDao.save(form);
+		createdForm = formDao.save(createdForm);
 		
 		return createdForm;
 	}
