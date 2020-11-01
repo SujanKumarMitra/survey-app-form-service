@@ -24,7 +24,7 @@ import com.github.mitrakumarsujan.formservice.service.FormResponseService;
  * @since 2020-10-26
  */
 @RestController
-@RequestMapping("/v1/submit")
+@RequestMapping("/v1/formResponse")
 public class FormResponseController {
 
 	@Autowired
@@ -34,7 +34,8 @@ public class FormResponseController {
 	private FormResponseService formResponseService;
 
 	@PostMapping
-	public ResponseEntity<RestSuccessResponse<FormResponse>> submit(ZoneId localeZoneId,
+	public ResponseEntity<RestSuccessResponse<FormResponse>> submit(
+			ZoneId localeZoneId,
 			@RequestParam(name = "zoneId", required = false) ZoneId clientZoneId,
 			@RequestBody @Valid FormResponse response) {
 

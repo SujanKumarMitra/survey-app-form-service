@@ -30,20 +30,21 @@ public class FormController {
 	private RestSuccessResponseBuilderFactory responseBuilderFactory;
 
 	@GetMapping("/{formId}")
-	public ResponseEntity<RestSuccessResponse<Form>> getForm(@PathVariable("formId") String formId) {
+	public ResponseEntity<RestSuccessResponse<FormTemplate>> getForm(@PathVariable("formId") String formId) {
 
 		Form form = formService.getForm(formId);
 		HttpStatus status = HttpStatus.FOUND;
 
-		return responseBuilderFactory	.getSingleDataBuilder(Form.class)
+		return responseBuilderFactory	.getSingleDataBuilder(FormTemplate.class)
 										.withStatus(status)
-										.withData(form)
+										.withData(form.getTemplate())
 										.build()
 										.toResponseEntity();
 	}
 
 	@PostMapping
-	public ResponseEntity<RestSuccessResponse<Form>> createForm(@RequestBody @Valid FormTemplate template,
+	public ResponseEntity<RestSuccessResponse<Form>> createForm(
+			@RequestBody @Valid FormTemplate template,
 			HttpServletRequest request) {
 		Form createdForm = formService.createForm(template, request);
 		HttpStatus status = HttpStatus.CREATED;
