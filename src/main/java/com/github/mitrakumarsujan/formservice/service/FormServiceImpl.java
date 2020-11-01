@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.formservice.service.form;
+package com.github.mitrakumarsujan.formservice.service;
 
 import java.util.List;
 import java.util.stream.Stream;
