@@ -30,7 +30,7 @@ public class FormController {
 	private RestSuccessResponseBuilderFactory responseBuilderFactory;
 
 	@GetMapping("/{formId}")
-	public ResponseEntity<RestSuccessResponse<FormTemplate>> getForm(@PathVariable("formId") String formId) {
+	public ResponseEntity<RestSuccessResponse<FormTemplate>> getFormTemplate(@PathVariable("formId") String formId) {
 
 		Form form = formService.getForm(formId);
 		HttpStatus status = HttpStatus.FOUND;

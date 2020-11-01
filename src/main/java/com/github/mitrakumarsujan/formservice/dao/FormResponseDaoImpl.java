@@ -3,12 +3,15 @@ package com.github.mitrakumarsujan.formservice.dao;
 import java.net.URI;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Repository;
 
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
 import com.github.mitrakumarsujan.formmodel.util.GenericRestTemplateFacade;
+import com.github.mitrakumarsujan.formmodel.util.URIBuilderUtils;
 import com.github.mitrakumarsujan.formservice.configuration.ApplicationConfigurationProperties;
 
 /**
@@ -25,14 +28,25 @@ public class FormResponseDaoImpl implements FormResponseDao {
 
 	@Autowired
 	private ApplicationConfigurationProperties properties;
+	
+	@Autowired
+	private URIBuilderUtils uriBuilderUtil;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(FormResponseDaoImpl.class);
 
 	@Override
 	public FormResponse save(FormResponse response) {
 		String baseUrl = properties.getDataStorageServiceUrl();
-		URI uri = URI.create(baseUrl + FORM_RESPONSE_ENDPOINT);
-
+		URI uri = uriBuilderUtil.getURI(baseUrl, FORM_RESPONSE_ENDPOINT);
+		
+		String formId = response.getFormId();
+		LOGGER.info("requesting data-storage-service to save formResponse for formId '{}'", formId);
+		
 		FormResponse formResponse = restTemplate.getRestSuccessResponseData(uri, HttpMethod.POST, response,
 				FormResponse.class);
+		
+		LOGGER.info("data-storage-service saved formResponse for formId '{}'", formId);
+		
 		return formResponse;
 	}
 

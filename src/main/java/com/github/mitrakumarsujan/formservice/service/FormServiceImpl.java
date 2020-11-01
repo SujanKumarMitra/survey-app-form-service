@@ -5,6 +5,8 @@ import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,23 +35,30 @@ public class FormServiceImpl implements FormService {
 	@Autowired
 	private FormDao formDao;
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(FormServiceImpl.class);
+
 	@Override
 	public Form createForm(FormTemplate template, HttpServletRequest request) {
 
+		LOGGER.info("setting uids in formTemplate");
 		setUIDs(template, request);
+		LOGGER.info("uids set in formTemplate");
 
 		MutableForm form = new MutableForm();
 		form.setTemplate(template);
 
+		LOGGER.info("setting uid and key for form");
 		String formKey = keyGeneratorService.generate(form, request);
 		String formUID = uidGeneratorService.generate(form, request);
 
 		form.setId(formUID);
 		form.setKey(formKey);
+		LOGGER.info("form uid and key set");
 
 		Form createdForm = new ImmutableForm(form);
 		createdForm = formDao.save(createdForm);
-		
+
+		LOGGER.info("form created");
 		return createdForm;
 	}
 
@@ -81,12 +90,16 @@ public class FormServiceImpl implements FormService {
 	}
 
 	private void setUIDInField(OptionField optionField, HttpServletRequest request) {
+		LOGGER.info("generating uid for OptionField");
 		String uid = uidGeneratorService.generate(optionField, request);
+		LOGGER.info("uid generated for OptionField");
 		optionField.setId(uid);
 	}
 
 	private void setUIDInField(FormField formField, HttpServletRequest request) {
+		LOGGER.info("generating uid for FormField");
 		String uid = uidGeneratorService.generate(formField, request);
+		LOGGER.info("uid generated for FormField");
 		formField.setId(uid);
 	}
 
