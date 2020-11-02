@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
+import com.github.mitrakumarsujan.formmodel.exception.ServerSideException;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.RestErrorResponse;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorResponseBuilderFactory;
 
@@ -15,18 +15,18 @@ import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorRe
  * @since 2020-11-02
  */
 @RestControllerAdvice
-public class FormControllerAdvice {
-
+public class ServerSideExceptionHandler {
+	
 	@Autowired
 	private RestErrorResponseBuilderFactory builderFactory;
-
-	@ExceptionHandler(FormNotFoundException.class)
-	public ResponseEntity<RestErrorResponse> handleFormNotFoundException(FormNotFoundException exception) {
+	
+	@ExceptionHandler(ServerSideException.class)
+	public ResponseEntity<RestErrorResponse> handleFormNotFoundException(ServerSideException exception) {
 		return builderFactory	.getErrorBuilder()
-								.withStatus(HttpStatus.NOT_FOUND)
-								.withErrors(exception.getErrors())
+								.withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+								.withMessage("Something is wrong. Please try again later")
+								.withErrors(null)
 								.build()
 								.toResponseEntity();
 	}
-
 }

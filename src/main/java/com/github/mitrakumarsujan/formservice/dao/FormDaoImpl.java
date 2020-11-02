@@ -7,9 +7,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 
+import com.github.mitrakumarsujan.formmodel.exception.ApplicationException;
 import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
+import com.github.mitrakumarsujan.formmodel.exception.RestCommunicationException;
+import com.github.mitrakumarsujan.formmodel.exception.ServerSideException;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.util.GenericRestTemplateFacade;
 import com.github.mitrakumarsujan.formmodel.util.URIBuilderUtils;
@@ -32,7 +36,7 @@ public class FormDaoImpl implements FormDao {
 
 	@Autowired
 	private URIBuilderUtils uriBuilderUtil;
-
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(FormDaoImpl.class);
 
 	@Override
@@ -51,7 +55,7 @@ public class FormDaoImpl implements FormDao {
 
 	@Override
 //	@Cacheable
-	public Form find(String formId) throws FormNotFoundException {
+	public Form find(String formId) throws ApplicationException {
 		String baseUrl = properties.getDataStorageServiceUrl();
 		URI uri = uriBuilderUtil.getURI(baseUrl, FORM_ENDPOINT, formId);
 
@@ -60,8 +64,12 @@ public class FormDaoImpl implements FormDao {
 		Form form = null;
 		try {
 			form = restTemplate.getRestSuccessResponseData(uri, HttpMethod.GET, null, Form.class);
-		} catch (RestClientException e) {
+		} catch (ResourceAccessException e) {
+			throw new RestCommunicationException();
+		} catch (HttpClientErrorException.NotFound e) {
 			throw new FormNotFoundException(formId);
+		} catch(Exception e) {
+			throw new ServerSideException(e);
 		}
 		LOGGER.info("received form '{}' from data-storage-service", formId);
 		return form;
