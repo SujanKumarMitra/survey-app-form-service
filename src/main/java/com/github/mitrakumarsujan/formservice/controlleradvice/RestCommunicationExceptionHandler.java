@@ -24,7 +24,7 @@ public class RestCommunicationExceptionHandler {
 	public ResponseEntity<RestErrorResponse> handleFormNotFoundException(RestCommunicationException exception) {
 		return builderFactory	.getErrorBuilder()
 								.withStatus(HttpStatus.GATEWAY_TIMEOUT)
-								.withMessage("Server not responding")
+								.withMessage("Server is not responding")
 								.withErrors(null)
 								.build()
 								.toResponseEntity();

@@ -16,15 +16,16 @@ import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorRe
  */
 @RestControllerAdvice
 public class ServerSideExceptionHandler {
-	
+
 	@Autowired
 	private RestErrorResponseBuilderFactory builderFactory;
-	
+
 	@ExceptionHandler(ServerSideException.class)
 	public ResponseEntity<RestErrorResponse> handleFormNotFoundException(ServerSideException exception) {
+		
 		return builderFactory	.getErrorBuilder()
 								.withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-								.withMessage("Something is wrong. Please try again later")
+								.withMessage(exception.getMessage())
 								.withErrors(null)
 								.build()
 								.toResponseEntity();

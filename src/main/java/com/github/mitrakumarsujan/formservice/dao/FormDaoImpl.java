@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
@@ -36,21 +38,29 @@ public class FormDaoImpl implements FormDao {
 
 	@Autowired
 	private URIBuilderUtils uriBuilderUtil;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(FormDaoImpl.class);
 
 	@Override
-	public Form save(Form form) {
+	public Form save(Form form) throws ApplicationException {
 		String baseUrl = properties.getDataStorageServiceUrl();
 		URI uri = uriBuilderUtil.getURI(baseUrl, FORM_ENDPOINT);
 
 		LOGGER.info("requesting data-storage-service to save form '{}'", form.getId());
 
-		Form responseForm = restTemplate.getRestSuccessResponseData(uri, HttpMethod.POST, form, Form.class);
-
+		ResponseEntity<String> responseEntity = null;
+		try {
+			responseEntity = restTemplate.postForEntity(uri, form, String.class);
+		} catch (ResourceAccessException e) {
+			throw new RestCommunicationException();
+		}
+		HttpStatus status = responseEntity.getStatusCode();
+		if(status != HttpStatus.CREATED) {
+			throw new ServerSideException("form not created");
+		}
 		LOGGER.info("data-storage-service saved form '{}'", form.getId());
+		return form;
 
-		return responseForm;
 	}
 
 	@Override
@@ -68,7 +78,7 @@ public class FormDaoImpl implements FormDao {
 			throw new RestCommunicationException();
 		} catch (HttpClientErrorException.NotFound e) {
 			throw new FormNotFoundException(formId);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new ServerSideException(e);
 		}
 		LOGGER.info("received form '{}' from data-storage-service", formId);
