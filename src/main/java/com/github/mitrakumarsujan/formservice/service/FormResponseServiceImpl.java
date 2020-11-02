@@ -3,7 +3,6 @@ package com.github.mitrakumarsujan.formservice.service;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -64,12 +63,24 @@ public class FormResponseServiceImpl implements FormResponseService {
 	}
 
 	private Map<String, Integer> getIndexedMap(Form form) {
-		AtomicInteger index = new AtomicInteger();
+		MutableInteger index = new MutableInteger();
 		return form	.getTemplate()
 					.getFields()
 					.stream()
 					.map(FormField::getId)
 					.collect(Collectors.toMap(Function.identity(), f -> index.getAndIncrement()));
+	}
+	
+	static class MutableInteger {
+		Integer val;
+		
+		MutableInteger() {
+			val = Integer.valueOf(0);
+		}
+		
+		public Integer getAndIncrement() {
+			return val++;
+		}
 	}
 
 	private static class ResponseComparator implements Comparator<Response> {
