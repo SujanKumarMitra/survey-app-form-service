@@ -71,14 +71,14 @@ public class FormResponseServiceImpl implements FormResponseService {
 					.collect(Collectors.toMap(Function.identity(), f -> index.getAndIncrement()));
 	}
 	
-	static class MutableInteger {
+	private static class MutableInteger {
 		Integer val;
 		
 		MutableInteger() {
 			val = Integer.valueOf(0);
 		}
 		
-		public Integer getAndIncrement() {
+		Integer getAndIncrement() {
 			return val++;
 		}
 	}
