@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
 import com.github.mitrakumarsujan.formmodel.model.form.ChoiceBasedFormField;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
@@ -63,7 +64,7 @@ public class FormServiceImpl implements FormService {
 	}
 
 	@Override
-	public Form getForm(String formId) {
+	public Form getForm(String formId) throws FormNotFoundException {
 		return formDao.find(formId);
 	}
 

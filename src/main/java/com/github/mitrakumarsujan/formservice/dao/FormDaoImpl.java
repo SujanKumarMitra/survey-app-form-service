@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.client.RestClientException;
 
+import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.util.GenericRestTemplateFacade;
 import com.github.mitrakumarsujan.formmodel.util.URIBuilderUtils;
@@ -30,33 +32,37 @@ public class FormDaoImpl implements FormDao {
 
 	@Autowired
 	private URIBuilderUtils uriBuilderUtil;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(FormDaoImpl.class);
 
 	@Override
 	public Form save(Form form) {
 		String baseUrl = properties.getDataStorageServiceUrl();
 		URI uri = uriBuilderUtil.getURI(baseUrl, FORM_ENDPOINT);
-		
+
 		LOGGER.info("requesting data-storage-service to save form '{}'", form.getId());
-		
+
 		Form responseForm = restTemplate.getRestSuccessResponseData(uri, HttpMethod.POST, form, Form.class);
-		
+
 		LOGGER.info("data-storage-service saved form '{}'", form.getId());
-		
+
 		return responseForm;
 	}
 
 	@Override
 //	@Cacheable
-	public Form find(String formId) {
+	public Form find(String formId) throws FormNotFoundException {
 		String baseUrl = properties.getDataStorageServiceUrl();
 		URI uri = uriBuilderUtil.getURI(baseUrl, FORM_ENDPOINT, formId);
 
 		LOGGER.info("requesting data-storage-service to get form '{}'", formId);
-		
-		Form form = restTemplate.getRestSuccessResponseData(uri, HttpMethod.GET, null, Form.class);
-		
+
+		Form form = null;
+		try {
+			form = restTemplate.getRestSuccessResponseData(uri, HttpMethod.GET, null, Form.class);
+		} catch (RestClientException e) {
+			throw new FormNotFoundException(formId);
+		}
 		LOGGER.info("received form '{}' from data-storage-service", formId);
 		return form;
 	}

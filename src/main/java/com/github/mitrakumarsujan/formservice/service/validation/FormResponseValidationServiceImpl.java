@@ -30,6 +30,8 @@ public class FormResponseValidationServiceImpl implements FormResponseValidation
 
 	@Autowired
 	private ResponseIdentityMapper responseMapper;
+	
+//	private static final Logger LOGGER = LoggerFactory.getLogger(FormResponseValidationServiceImpl.class);
 
 	@Override
 	public boolean validate(Form form, FormResponse formResponse) {

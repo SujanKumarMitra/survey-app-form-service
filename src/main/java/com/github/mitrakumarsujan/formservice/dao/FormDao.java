@@ -1,5 +1,6 @@
 package com.github.mitrakumarsujan.formservice.dao;
 
+import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 
 /**
@@ -10,6 +11,6 @@ public interface FormDao {
 	
 	Form save(Form form);
 	
-	Form find(String formId);
+	Form find(String formId) throws FormNotFoundException;
 	
 }
