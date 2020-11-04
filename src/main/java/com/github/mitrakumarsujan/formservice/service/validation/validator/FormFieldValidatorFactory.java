@@ -12,13 +12,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.github.mitrakumarsujan.formmodel.model.form.CheckBoxField;
-import com.github.mitrakumarsujan.formmodel.model.form.ChoiceBasedFormField;
 import com.github.mitrakumarsujan.formmodel.model.form.DateField;
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
 import com.github.mitrakumarsujan.formmodel.model.form.RadioButtonField;
 import com.github.mitrakumarsujan.formmodel.model.form.TextBoxField;
 import com.github.mitrakumarsujan.formmodel.model.form.TimeField;
-import com.github.mitrakumarsujan.formmodel.model.formresponse.ChoiceBasedResponse;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
 
 /**
@@ -40,8 +38,8 @@ public class FormFieldValidatorFactory {
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	public <R extends FormField> FormFieldValidator<R, Response> getValidator(Class<? extends R> fieldType) {
-		return (FormFieldValidator<R, Response>) map.get(fieldType);
+	public <F extends FormField> FormFieldValidator<F, Response> getValidator(Class<? extends F> fieldType) {
+		return (FormFieldValidator<F, Response>) map.get(fieldType);
 
 	}
 
@@ -66,13 +64,6 @@ public class FormFieldValidatorFactory {
 		registerValidator(RadioButtonField.class, context.getBean(RadioButtonFieldValidator.class));
 		registerValidator(TimeField.class, context.getBean(TimeFieldValidator.class));
 		registerValidator(TextBoxField.class, context.getBean(TextBoxFieldValidator.class));
-	}
-
-	@SuppressWarnings({ "unchecked" })
-	public <F extends ChoiceBasedFormField, R extends ChoiceBasedResponse> ChoiceBasedFormFieldValidator<F, R> getChoiceBasedValidator(
-			Class<? extends F> fieldType, Class<? extends R> responseType) {
-		return (ChoiceBasedFormFieldValidator<F, R>) map.get(fieldType);
-
 	}
 
 }

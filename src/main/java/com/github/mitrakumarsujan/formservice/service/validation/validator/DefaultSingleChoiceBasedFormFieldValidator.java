@@ -23,23 +23,4 @@ public class DefaultSingleChoiceBasedFormFieldValidator
 					.anyMatch(optionUid -> optionUid.contentEquals(uid));
 	}
 
-	@Override
-	public void formatResponse(ChoiceBasedFormField field, SingleChoiceBasedResponse response) {
-
-		String optionId = response.getOptionId();
-
-		field	.getOptions()
-				.parallelStream()
-				.filter(optionField -> isSelected(optionField, optionId))
-				.map(OptionField::getText)
-				.findFirst()
-				.ifPresent(text -> response.setAnswer(text));
-
-	}
-
-	private boolean isSelected(OptionField field, String optionId) {
-		return field.getId()
-					.contentEquals(optionId);
-	}
-
 }

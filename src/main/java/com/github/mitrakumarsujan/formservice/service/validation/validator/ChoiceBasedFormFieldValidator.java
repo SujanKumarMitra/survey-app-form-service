@@ -10,5 +10,4 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.ChoiceBasedRespon
 public interface ChoiceBasedFormFieldValidator<F extends ChoiceBasedFormField, R extends ChoiceBasedResponse>
 		extends FormFieldValidator<F, R> {
 	
-	void formatResponse(F field, R response);
 }

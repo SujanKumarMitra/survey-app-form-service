@@ -20,15 +20,10 @@ public class RadioButtonFieldValidator implements SingleChoiceBasedFormFieldVali
 	public boolean validate(RadioButtonField field, SingleChoiceBasedResponse response) {
 		return delegatee.validate(field, response);
 	}
-	
+
 	@Override
 	public String getErrorMessage() {
 		return "option id not matching";
-	}
-
-	@Override
-	public void formatResponse(RadioButtonField field, SingleChoiceBasedResponse response) {
-		delegatee.formatResponse(field, response);
 	}
 
 }

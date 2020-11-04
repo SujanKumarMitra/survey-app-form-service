@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.formservice.service.formatter;
+package com.github.mitrakumarsujan.formservice.service.format;
 
 import com.github.mitrakumarsujan.formservice.service.FormResponseRequest;
 

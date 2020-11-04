@@ -41,25 +41,27 @@ public class FormServiceImpl implements FormService {
 	@Override
 	public Form createForm(FormTemplate template, HttpServletRequest request) {
 
-		LOGGER.info("setting uids in formTemplate");
+		String name = template.getName();
+
+		LOGGER.info("setting uids in formTemplate '{}'", name);
 		setUIDs(template, request);
-		LOGGER.info("uids set in formTemplate");
+		LOGGER.info("uids set in formTemplate '{}'", name);
 
 		MutableForm form = new MutableForm();
 		form.setTemplate(template);
 
-		LOGGER.info("setting uid and key for form");
+		LOGGER.info("setting uid and key for form '{}'", name);
 		String formKey = keyGeneratorService.generate(form, request);
 		String formUID = uidGeneratorService.generate(form, request);
 
 		form.setId(formUID);
 		form.setKey(formKey);
-		LOGGER.info("form uid and key set");
+		LOGGER.info("form uid and key set in form '{}'", name);
 
 		Form createdForm = new ImmutableForm(form);
 		createdForm = formDao.save(createdForm);
 
-		LOGGER.info("form created");
+		LOGGER.info("form '{}' created", name);
 		return createdForm;
 	}
 
@@ -91,16 +93,18 @@ public class FormServiceImpl implements FormService {
 	}
 
 	private void setUIDInField(OptionField optionField, HttpServletRequest request) {
-		LOGGER.info("generating uid for OptionField");
+		String text = optionField.getText();
+		LOGGER.info("generating uid for OptionField '{}'", text);
 		String uid = uidGeneratorService.generate(optionField, request);
-		LOGGER.info("uid generated for OptionField");
+		LOGGER.info("uid generated for OptionField '{}'", text);
 		optionField.setId(uid);
 	}
 
 	private void setUIDInField(FormField formField, HttpServletRequest request) {
-		LOGGER.info("generating uid for FormField");
+		String question = formField.getQuestion();
+		LOGGER.info("generating uid for FormField '{}'", question);
 		String uid = uidGeneratorService.generate(formField, request);
-		LOGGER.info("uid generated for FormField");
+		LOGGER.info("uid generated for FormField '{}'", question);
 		formField.setId(uid);
 	}
 
