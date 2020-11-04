@@ -66,7 +66,6 @@ public class FormDaoImpl implements FormDao {
 	}
 
 	@Override
-//	@Cacheable
 	public Form find(String formId) throws ApplicationException {
 		String baseUrl = properties.getDataStorageServiceUrl();
 		URI uri = uriBuilderUtil.getURI(baseUrl, FORM_ENDPOINT, formId);
