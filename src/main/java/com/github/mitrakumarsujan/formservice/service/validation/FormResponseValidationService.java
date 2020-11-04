@@ -1,7 +1,6 @@
 package com.github.mitrakumarsujan.formservice.service.validation;
 
-import com.github.mitrakumarsujan.formmodel.model.form.Form;
-import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
+import com.github.mitrakumarsujan.formservice.service.FormResponseRequest;
 
 /**
  * @author Sujan Kumar Mitra
@@ -9,6 +8,6 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
  */
 public interface FormResponseValidationService {
 
-	ValidationResult validate(Form form, FormResponse response);
+	ValidationResult validate(FormResponseRequest request);
 	
 }

@@ -34,6 +34,12 @@ public class FormResponseServiceImpl implements FormResponseService {
 	private FormResponseDao formResponseDao;
 
 	@Autowired
+	private FormFieldIdentityMapper fieldMapper;
+
+	@Autowired
+	private ResponseIdentityMapper responseMapper;
+
+	@Autowired
 	private FormResponseValidationService responseValidationService;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FormResponseServiceImpl.class);
@@ -41,10 +47,15 @@ public class FormResponseServiceImpl implements FormResponseService {
 	@Override
 	public void submit(FormResponse response) {
 		String formId = response.getFormId();
-
 		Form form = formService.getForm(formId);
+		
+		Map<String, FormField> fieldMap = fieldMapper.apply(form);
+		Map<String, Response> responseMap = responseMapper.apply(response);
+		
+		FormResponseRequest request = new FormResponseRequestImpl(response, form, fieldMap, responseMap);
+
 		LOGGER.info("validating responses for form '{}'", formId);
-		ValidationResult result = responseValidationService.validate(form, response);
+		ValidationResult result = responseValidationService.validate(request);
 		if (result.hasErrors()) {
 			throw new FormResponseValidationException(result);
 		}

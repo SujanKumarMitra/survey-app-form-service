@@ -11,13 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.mitrakumarsujan.formmodel.model.form.ChoiceBasedFormField;
-import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.ChoiceBasedResponse;
-import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.error.ErrorInfo;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.error.ErrorInfoImpl;
+import com.github.mitrakumarsujan.formservice.service.FormResponseRequest;
 import com.github.mitrakumarsujan.formservice.service.validation.validator.ChoiceBasedFormFieldValidator;
 import com.github.mitrakumarsujan.formservice.service.validation.validator.FormFieldValidator;
 import com.github.mitrakumarsujan.formservice.service.validation.validator.FormFieldValidatorFactory;
@@ -32,20 +31,14 @@ public class FormResponseValidationServiceImpl implements FormResponseValidation
 	@Autowired
 	private FormFieldValidatorFactory validatorFactory;
 
-	@Autowired
-	private FormFieldIdentityMapper formFieldMapper;
-
-	@Autowired
-	private ResponseIdentityMapper responseMapper;
-
 	private static final ValidationResult VALID_RESULT = new ValidationResultImpl(false, null, emptyList());
 
 //	private static final Logger LOGGER = LoggerFactory.getLogger(FormResponseValidationServiceImpl.class);
 
 	@Override
-	public ValidationResult validate(Form form, FormResponse formResponse) {
-		Map<String, FormField> fieldMap = formFieldMapper.apply(form);
-		Map<String, Response> responseMap = responseMapper.apply(formResponse);
+	public ValidationResult validate(FormResponseRequest request) {
+		Map<String, FormField> fieldMap = request.getFieldMap();
+		Map<String, Response> responseMap = request.getResponseMap();
 
 		Collection<ErrorInfo> unknownFieldErrors = getUnknownFieldErrors(fieldMap, responseMap);
 

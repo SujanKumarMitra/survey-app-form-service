@@ -53,9 +53,11 @@ public class FormDaoImpl implements FormDao {
 			responseEntity = restTemplate.postForEntity(uri, form, String.class);
 		} catch (ResourceAccessException e) {
 			throw new RestCommunicationException();
+		} catch (Exception e) {
+			throw new ServerErrorException(e);
 		}
 		HttpStatus status = responseEntity.getStatusCode();
-		if(status != HttpStatus.CREATED) {
+		if (status != HttpStatus.CREATED) {
 			throw new ServerErrorException("form not created");
 		}
 		LOGGER.info("data-storage-service saved form '{}'", form.getId());
