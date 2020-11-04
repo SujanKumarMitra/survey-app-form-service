@@ -7,9 +7,8 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
  * @author Sujan Kumar Mitra
  * @since 2020-10-28
  */
-public interface FormResponseValidationService extends Validator<Form, FormResponse> {
+public interface FormResponseValidationService {
 
-	@Override
-	boolean validate(Form form, FormResponse response);
+	ValidationResult validate(Form form, FormResponse response);
 	
 }

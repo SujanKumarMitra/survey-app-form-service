@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.github.mitrakumarsujan.formmodel.exception.RestCommunicationException;
+import com.github.mitrakumarsujan.formmodel.exception.DuplicateKeyException;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.RestErrorResponse;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorResponseBuilderFactory;
 
@@ -15,18 +15,18 @@ import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorRe
  * @since 2020-11-02
  */
 @RestControllerAdvice
-public class RestCommunicationExceptionHandler {
-	
+public class DuplicateKeyExceptionHandler {
+
 	@Autowired
 	private RestErrorResponseBuilderFactory builderFactory;
-	
-	@ExceptionHandler(RestCommunicationException.class)
-	public ResponseEntity<RestErrorResponse> handle(RestCommunicationException exception) {
+
+	@ExceptionHandler(DuplicateKeyException.class)
+	public ResponseEntity<RestErrorResponse> handle(DuplicateKeyException exception) {
 		return builderFactory	.getErrorBuilder()
-								.withStatus(HttpStatus.GATEWAY_TIMEOUT)
-								.withMessage("Server is not responding")
-								.withErrors(null)
+								.withStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+								.withMessage(exception.getLocalizedMessage())
 								.build()
 								.toResponseEntity();
 	}
+
 }

@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.formservice.service.validation;
+package com.github.mitrakumarsujan.formservice.service.validation.validator;
 
 /**
  * @author Sujan Kumar Mitra

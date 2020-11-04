@@ -7,6 +7,7 @@ import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.mitrakumarsujan.formmodel.exception.DuplicateKeyException;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
 import com.github.mitrakumarsujan.formmodel.util.CollectorUtils;
@@ -18,7 +19,7 @@ public class FormFieldIdentityMapper implements Function<Form, Map<String, FormF
 
 	@Override
 //	@Cacheable
-	public Map<String, FormField> apply(Form form) {
+	public Map<String, FormField> apply(Form form) throws DuplicateKeyException {
 		// @formatter:off
 		List<FormField> fields = form.getTemplate().getFields();
 		// @formatter:on

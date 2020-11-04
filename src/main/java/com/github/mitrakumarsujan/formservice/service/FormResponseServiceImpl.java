@@ -17,6 +17,8 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
 import com.github.mitrakumarsujan.formservice.dao.FormResponseDao;
 import com.github.mitrakumarsujan.formservice.service.validation.FormResponseValidationService;
+import com.github.mitrakumarsujan.formservice.service.validation.FormResponseValidationException;
+import com.github.mitrakumarsujan.formservice.service.validation.ValidationResult;
 
 /**
  * @author Sujan Kumar Mitra
@@ -27,35 +29,35 @@ public class FormResponseServiceImpl implements FormResponseService {
 
 	@Autowired
 	private FormService formService;
-	
+
 	@Autowired
 	private FormResponseDao formResponseDao;
 
 	@Autowired
 	private FormResponseValidationService responseValidationService;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(FormResponseServiceImpl.class);
-	
+
 	@Override
 	public void submit(FormResponse response) {
 		String formId = response.getFormId();
-		
+
 		Form form = formService.getForm(formId);
 		LOGGER.info("validating responses for form '{}'", formId);
-		boolean validate = responseValidationService.validate(form, response);
-		if (!validate) {
-//			TODO throw exception
+		ValidationResult result = responseValidationService.validate(form, response);
+		if (result.hasErrors()) {
+			throw new FormResponseValidationException(result);
 		}
 		LOGGER.info("responses validated for form '{}'", formId);
 		LOGGER.info("rearranging response fields for form '{}'", formId);
 
-		rearrangeResponseFields(response, form);		
+		rearrangeResponseFields(form, response);
 
 		LOGGER.info("response fields rearranged for form '{}'", formId);
 		formResponseDao.save(response);
 	}
 
-	private void rearrangeResponseFields(FormResponse response, Form form) {
+	private void rearrangeResponseFields(Form form, FormResponse response) {
 		Map<String, Integer> indexedMap = getIndexedMap(form);
 
 		List<Response> responses = response.getResponses();
@@ -70,14 +72,14 @@ public class FormResponseServiceImpl implements FormResponseService {
 					.map(FormField::getId)
 					.collect(Collectors.toMap(Function.identity(), f -> index.getAndIncrement()));
 	}
-	
+
 	private static class MutableInteger {
 		Integer val;
-		
+
 		MutableInteger() {
 			val = Integer.valueOf(0);
 		}
-		
+
 		Integer getAndIncrement() {
 			return val++;
 		}

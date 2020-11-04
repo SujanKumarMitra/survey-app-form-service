@@ -15,7 +15,7 @@ import org.springframework.web.client.ResourceAccessException;
 import com.github.mitrakumarsujan.formmodel.exception.ApplicationException;
 import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
 import com.github.mitrakumarsujan.formmodel.exception.RestCommunicationException;
-import com.github.mitrakumarsujan.formmodel.exception.ServerSideException;
+import com.github.mitrakumarsujan.formmodel.exception.ServerErrorException;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.util.GenericRestTemplateFacade;
 import com.github.mitrakumarsujan.formmodel.util.URIBuilderUtils;
@@ -56,7 +56,7 @@ public class FormDaoImpl implements FormDao {
 		}
 		HttpStatus status = responseEntity.getStatusCode();
 		if(status != HttpStatus.CREATED) {
-			throw new ServerSideException("form not created");
+			throw new ServerErrorException("form not created");
 		}
 		LOGGER.info("data-storage-service saved form '{}'", form.getId());
 		return form;
@@ -79,7 +79,7 @@ public class FormDaoImpl implements FormDao {
 		} catch (HttpClientErrorException.NotFound e) {
 			throw new FormNotFoundException(formId);
 		} catch (Exception e) {
-			throw new ServerSideException(e);
+			throw new ServerErrorException(e);
 		}
 		LOGGER.info("received form '{}' from data-storage-service", formId);
 		return form;

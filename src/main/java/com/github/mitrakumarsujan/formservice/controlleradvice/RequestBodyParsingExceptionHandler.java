@@ -1,13 +1,17 @@
 package com.github.mitrakumarsujan.formservice.controlleradvice;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.github.mitrakumarsujan.formmodel.exception.RestCommunicationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.RestErrorResponse;
+import com.github.mitrakumarsujan.formmodel.model.restresponse.error.ErrorInfoImpl;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorResponseBuilderFactory;
 
 /**
@@ -15,18 +19,20 @@ import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorRe
  * @since 2020-11-02
  */
 @RestControllerAdvice
-public class RestCommunicationExceptionHandler {
-	
+public class RequestBodyParsingExceptionHandler {
+
 	@Autowired
 	private RestErrorResponseBuilderFactory builderFactory;
-	
-	@ExceptionHandler(RestCommunicationException.class)
-	public ResponseEntity<RestErrorResponse> handle(RestCommunicationException exception) {
+
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ResponseEntity<RestErrorResponse> handle(HttpMessageNotReadableException exception) {
 		return builderFactory	.getErrorBuilder()
-								.withStatus(HttpStatus.GATEWAY_TIMEOUT)
-								.withMessage("Server is not responding")
-								.withErrors(null)
+								.withStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+								.withMessage("request body has errors.")
+								.withErrors(Collections.singletonList(
+										new ErrorInfoImpl(exception.getMessage(), JsonProcessingException.class.getSimpleName())))
 								.build()
 								.toResponseEntity();
 	}
+
 }

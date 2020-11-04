@@ -2,7 +2,6 @@ package com.github.mitrakumarsujan.formservice.service.validation.validator;
 
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
-import com.github.mitrakumarsujan.formservice.service.validation.Validator;
 
 /**
  * @author Sujan Kumar Mitra
