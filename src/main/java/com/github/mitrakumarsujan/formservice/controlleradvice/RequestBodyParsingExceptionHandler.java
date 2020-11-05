@@ -9,7 +9,6 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.RestErrorResponse;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.error.ErrorInfoImpl;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorResponseBuilderFactory;
@@ -30,7 +29,7 @@ public class RequestBodyParsingExceptionHandler {
 								.withStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 								.withMessage("request body has errors.")
 								.withErrors(Collections.singletonList(
-										new ErrorInfoImpl(exception.getMessage(), JsonProcessingException.class.getSimpleName())))
+										new ErrorInfoImpl(exception.getMessage(), exception)))
 								.build()
 								.toResponseEntity();
 	}

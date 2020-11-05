@@ -27,13 +27,11 @@ public class ServerErrorExceptionHandler {
 	public ResponseEntity<RestErrorResponse> handle(ServerErrorException exception) {
 
 		String message = exception.getMessage();
-		String className = message	.getClass()
-									.getName();
 		
 		return builderFactory	.getErrorBuilder()
 								.withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 								.withMessage(message)
-								.withErrors(Collections.singleton(new ErrorInfoImpl(message, className)))
+								.withErrors(Collections.singleton(new ErrorInfoImpl(message, exception)))
 								.build()
 								.toResponseEntity();
 	}
