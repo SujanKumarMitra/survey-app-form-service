@@ -44,6 +44,9 @@ public class FormResponseServiceImpl implements FormResponseService {
 
 	@Autowired
 	private ResponseFieldRearrangerService fieldRearrangerService;
+	
+	@Autowired
+	private AbsentResponseFieldDefaultResponseInsertionService defaultResponseInsertionService;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FormResponseServiceImpl.class);
 
@@ -63,6 +66,13 @@ public class FormResponseServiceImpl implements FormResponseService {
 			throw new FormResponseValidationException(result);
 		}
 		LOGGER.info("responses validated for form '{}'", formId);
+		
+		LOGGER.info("inserting absent responses for form '{}'", formId);
+		
+		defaultResponseInsertionService.insertAbsentFieldsWithDefaultResponses(request);
+		
+		LOGGER.info("absent responses inserted for form '{}'", formId);
+		
 		LOGGER.info("formatting response fields for form '{}'", formId);
 
 		responseFormatterService.formatResponses(request);
