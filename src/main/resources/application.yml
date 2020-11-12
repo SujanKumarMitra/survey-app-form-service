@@ -3,4 +3,5 @@ spring:
     name: form-service
     service-endpoints:
       data-storage-service: http://localhost:8081/
+server:  port: 8082
     
