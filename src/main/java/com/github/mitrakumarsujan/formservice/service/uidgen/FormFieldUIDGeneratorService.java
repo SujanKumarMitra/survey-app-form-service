@@ -15,7 +15,7 @@ import com.github.mitrakumarsujan.formmodel.model.form.FormField;
 public class FormFieldUIDGeneratorService {
 
 	@Autowired
-	private FormFieldUIDGeneratorFactory generatorFactory;
+	private FormFieldUIDGeneratorFactoryImpl generatorFactory;
 
 	public String generate(FormField formField, HttpServletRequest request) {
 		UIDGenerator<FormField> generator = generatorFactory.getGenerator(formField.getClass());

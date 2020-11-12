@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.model.form.FormTemplate;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.RestSuccessResponse;
-import com.github.mitrakumarsujan.formmodel.model.restresponse.success.RestSuccessResponseBuilderFactory;
+import com.github.mitrakumarsujan.formmodel.model.restresponse.success.RestSuccessResponseBuilderFactoryImpl;
 import com.github.mitrakumarsujan.formservice.service.FormService;
 
 @RestController
@@ -27,7 +27,7 @@ public class FormController {
 	private FormService formService;
 
 	@Autowired
-	private RestSuccessResponseBuilderFactory responseBuilderFactory;
+	private RestSuccessResponseBuilderFactoryImpl responseBuilderFactory;
 
 	@GetMapping("/{formId}")
 	public ResponseEntity<RestSuccessResponse<FormTemplate>> getFormTemplate(@PathVariable("formId") String formId) {

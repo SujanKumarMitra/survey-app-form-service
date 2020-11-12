@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.RestSuccessResponse;
-import com.github.mitrakumarsujan.formmodel.model.restresponse.success.RestSuccessResponseBuilderFactory;
+import com.github.mitrakumarsujan.formmodel.model.restresponse.success.RestSuccessResponseBuilderFactoryImpl;
 import com.github.mitrakumarsujan.formservice.service.FormResponseService;
 
 /**
@@ -28,7 +28,7 @@ import com.github.mitrakumarsujan.formservice.service.FormResponseService;
 public class FormResponseController {
 
 	@Autowired
-	private RestSuccessResponseBuilderFactory responseBuilderFactory;
+	private RestSuccessResponseBuilderFactoryImpl responseBuilderFactory;
 
 	@Autowired
 	private FormResponseService formResponseService;
