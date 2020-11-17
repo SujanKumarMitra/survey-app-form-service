@@ -1,7 +1,6 @@
 package com.github.mitrakumarsujan.formservice.dao;
 
 import java.net.URI;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,12 +62,6 @@ public class FormResponseDaoImpl implements FormResponseDao {
 
 		LOGGER.info("data-storage-service saved formResponse for formId '{}'", formId);
 		return response;
-	}
-
-	@Override
-	public List<FormResponse> getAll(String formId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
