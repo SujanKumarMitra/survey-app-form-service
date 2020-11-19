@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import com.github.mitrakumarsujan.formservice.service.FormService;
 
 @RestController
 @RequestMapping("/v1/form")
+@CrossOrigin
 public class FormController {
 
 	@Autowired
@@ -33,7 +35,7 @@ public class FormController {
 	public ResponseEntity<RestSuccessResponse<FormTemplate>> getFormTemplate(@PathVariable("formId") String formId) {
 
 		Form form = formService.getForm(formId);
-		HttpStatus status = HttpStatus.FOUND;
+		HttpStatus status = HttpStatus.OK;
 
 		return responseBuilderFactory	.getSingleDataBuilder(FormTemplate.class)
 										.withStatus(status)
