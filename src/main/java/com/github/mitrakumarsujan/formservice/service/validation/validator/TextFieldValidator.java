@@ -2,7 +2,7 @@ package com.github.mitrakumarsujan.formservice.service.validation.validator;
 
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formmodel.model.form.TextBoxField;
+import com.github.mitrakumarsujan.formmodel.model.form.TextField;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
 
 /**
@@ -10,10 +10,10 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
  * @since 2020-10-28
  */
 @Component
-public class TextBoxFieldValidator implements FormFieldValidator<TextBoxField, Response> {
+public class TextFieldValidator implements FormFieldValidator<TextField, Response> {
 
 	@Override
-	public boolean validate(TextBoxField field, Response response) {
+	public boolean validate(TextField field, Response response) {
 
 		String answer = response.getAnswer();
 		boolean required = field.isRequired();

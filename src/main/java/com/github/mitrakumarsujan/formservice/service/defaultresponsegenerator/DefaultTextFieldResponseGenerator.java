@@ -2,20 +2,20 @@ package com.github.mitrakumarsujan.formservice.service.defaultresponsegenerator;
 
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formmodel.model.form.TextBoxField;
+import com.github.mitrakumarsujan.formmodel.model.form.TextField;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
-import com.github.mitrakumarsujan.formmodel.model.formresponse.TextBoxResponse;
+import com.github.mitrakumarsujan.formmodel.model.formresponse.TextFieldResponse;
 
 /**
  * @author skmitra
  * @since 2020-11-09
  */
 @Component
-public class DefaultTextBoxResponseGenerator implements DefaultResponseGenerator<TextBoxField> {
+public class DefaultTextFieldResponseGenerator implements DefaultResponseGenerator<TextField> {
 
 	@Override
-	public Response generate(TextBoxField field) {
-		TextBoxResponse response = new TextBoxResponse();
+	public Response generate(TextField field) {
+		TextFieldResponse response = new TextFieldResponse();
 		response.setAnswer("");
 		response.setQuestionId(field.getId());
 		return response;

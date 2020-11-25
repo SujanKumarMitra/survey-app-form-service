@@ -3,21 +3,21 @@ package com.github.mitrakumarsujan.formservice.service.format.formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formmodel.model.form.RadioButtonField;
-import com.github.mitrakumarsujan.formmodel.model.formresponse.RadioButtonResponse;
+import com.github.mitrakumarsujan.formmodel.model.form.RadioField;
+import com.github.mitrakumarsujan.formmodel.model.formresponse.RadioResponse;
 
 /**
  * @author Sujan Kumar Mitra
  * @since 2020-11-04
  */
 @Component
-public class RadioButtonResponseFormatter implements FormResponseFormatter<RadioButtonField, RadioButtonResponse> {
+public class RadioResponseFormatter implements FormResponseFormatter<RadioField, RadioResponse> {
 
 	@Autowired
 	private DefaultSingleChoiceResponseFormatter delegatee;
 
 	@Override
-	public void format(RadioButtonField field, RadioButtonResponse response) {
+	public void format(RadioField field, RadioResponse response) {
 		delegatee.format(field, response);
 	}
 

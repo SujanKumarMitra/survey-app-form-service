@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.CheckBoxResponse;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.DateResponse;
-import com.github.mitrakumarsujan.formmodel.model.formresponse.RadioButtonResponse;
+import com.github.mitrakumarsujan.formmodel.model.formresponse.RadioResponse;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
-import com.github.mitrakumarsujan.formmodel.model.formresponse.TextBoxResponse;
+import com.github.mitrakumarsujan.formmodel.model.formresponse.TextFieldResponse;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.TimeResponse;
 
 /**
@@ -62,8 +62,8 @@ public class ResponseFormatterFactoryImpl implements ResponseFormatterFactory {
 	private void registerKnownFormatters() {
 		registerFormatter(DateResponse.class, context.getBean(DateResponseFormatter.class));
 		registerFormatter(TimeResponse.class, context.getBean(TimeResponseFormatter.class));
-		registerFormatter(TextBoxResponse.class, context.getBean(TextBoxResponseFormatter.class));
+		registerFormatter(TextFieldResponse.class, context.getBean(TextFieldResponseFormatter.class));
 		registerFormatter(CheckBoxResponse.class, context.getBean(CheckBoxResponseFormatter.class));
-		registerFormatter(RadioButtonResponse.class, context.getBean(RadioButtonResponseFormatter.class));
+		registerFormatter(RadioResponse.class, context.getBean(RadioResponseFormatter.class));
 	}
 }

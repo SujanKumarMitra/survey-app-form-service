@@ -2,8 +2,8 @@ package com.github.mitrakumarsujan.formservice.service.defaultresponsegenerator;
 
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formmodel.model.form.RadioButtonField;
-import com.github.mitrakumarsujan.formmodel.model.formresponse.RadioButtonResponse;
+import com.github.mitrakumarsujan.formmodel.model.form.RadioField;
+import com.github.mitrakumarsujan.formmodel.model.formresponse.RadioResponse;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
 
 /**
@@ -11,11 +11,11 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
  * @since 2020-11-09
  */
 @Component
-public class DefaultRadioButtonResponseGenerator implements DefaultResponseGenerator<RadioButtonField> {
+public class DefaultRadioResponseGenerator implements DefaultResponseGenerator<RadioField> {
 
 	@Override
-	public Response generate(RadioButtonField field) {
-		RadioButtonResponse response = new RadioButtonResponse();
+	public Response generate(RadioField field) {
+		RadioResponse response = new RadioResponse();
 		response.setAnswer("");
 		response.setQuestionId(field.getId());
 		response.setOptionId("");

@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import com.github.mitrakumarsujan.formmodel.model.form.CheckBoxField;
 import com.github.mitrakumarsujan.formmodel.model.form.DateField;
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
-import com.github.mitrakumarsujan.formmodel.model.form.RadioButtonField;
-import com.github.mitrakumarsujan.formmodel.model.form.TextBoxField;
+import com.github.mitrakumarsujan.formmodel.model.form.RadioField;
+import com.github.mitrakumarsujan.formmodel.model.form.TextField;
 import com.github.mitrakumarsujan.formmodel.model.form.TimeField;
 
 /**
@@ -55,8 +55,8 @@ public class FormFieldUIDGeneratorFactoryImpl implements FormFieldUIDGeneratorFa
 		registerGenerator(CheckBoxField.class, context.getBean(CheckBoxUIDGenerator.class));
 		registerGenerator(DateField.class, context.getBean(DateFieldUIDGenerator.class));
 		registerGenerator(TimeField.class, context.getBean(TimeFieldUIDGenerator.class));
-		registerGenerator(TextBoxField.class, context.getBean(TextBoxUIDGenerator.class));
-		registerGenerator(RadioButtonField.class, context.getBean(RadioButtonUIDGenerator.class));
+		registerGenerator(TextField.class, context.getBean(TextFieldUIDGenerator.class));
+		registerGenerator(RadioField.class, context.getBean(RadioUIDGenerator.class));
 	}
 
 }

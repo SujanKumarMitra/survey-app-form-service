@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import com.github.mitrakumarsujan.formmodel.model.form.CheckBoxField;
 import com.github.mitrakumarsujan.formmodel.model.form.DateField;
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
-import com.github.mitrakumarsujan.formmodel.model.form.RadioButtonField;
-import com.github.mitrakumarsujan.formmodel.model.form.TextBoxField;
+import com.github.mitrakumarsujan.formmodel.model.form.RadioField;
+import com.github.mitrakumarsujan.formmodel.model.form.TextField;
 import com.github.mitrakumarsujan.formmodel.model.form.TimeField;
 
 /**
@@ -53,8 +53,8 @@ public class DefaultResponseGeneratorFactoryImpl implements DefaultResponseGener
 	private void registerKnownGenerators() {
 		registerGenerator(DateField.class, context.getBean(DefaultDateResponseGenerator.class));
 		registerGenerator(TimeField.class, context.getBean(DefaultTimeResponseGenerator.class));
-		registerGenerator(TextBoxField.class, context.getBean(DefaultTextBoxResponseGenerator.class));
+		registerGenerator(TextField.class, context.getBean(DefaultTextFieldResponseGenerator.class));
 		registerGenerator(CheckBoxField.class, context.getBean(DefaultCheckBoxResponseGenerator.class));
-		registerGenerator(RadioButtonField.class, context.getBean(DefaultRadioButtonResponseGenerator.class));
+		registerGenerator(RadioField.class, context.getBean(DefaultRadioResponseGenerator.class));
 	}
 }

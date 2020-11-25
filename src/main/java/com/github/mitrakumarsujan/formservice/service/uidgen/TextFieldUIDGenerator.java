@@ -3,20 +3,20 @@ package com.github.mitrakumarsujan.formservice.service.uidgen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formmodel.model.form.TextBoxField;
+import com.github.mitrakumarsujan.formmodel.model.form.TextField;
 
 /**
  * @author Sujan Kumar Mitra
  * @since 2020-10-25
  */
 @Component
-public class TextBoxUIDGenerator implements UIDGenerator<TextBoxField> {
+public class TextFieldUIDGenerator implements UIDGenerator<TextField> {
 
 	@Autowired
 	private FormFieldUIDGenerator delegatee;
 
 	@Override
-	public String generate(TextBoxField textBox) {
+	public String generate(TextField textBox) {
 		return delegatee.generate(textBox);
 	}
 

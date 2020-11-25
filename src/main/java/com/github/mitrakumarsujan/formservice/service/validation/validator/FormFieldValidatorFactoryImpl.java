@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import com.github.mitrakumarsujan.formmodel.model.form.CheckBoxField;
 import com.github.mitrakumarsujan.formmodel.model.form.DateField;
 import com.github.mitrakumarsujan.formmodel.model.form.FormField;
-import com.github.mitrakumarsujan.formmodel.model.form.RadioButtonField;
-import com.github.mitrakumarsujan.formmodel.model.form.TextBoxField;
+import com.github.mitrakumarsujan.formmodel.model.form.RadioField;
+import com.github.mitrakumarsujan.formmodel.model.form.TextField;
 import com.github.mitrakumarsujan.formmodel.model.form.TimeField;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
 
@@ -64,9 +64,9 @@ public class FormFieldValidatorFactoryImpl implements FormFieldValidatorFactory 
 	private void registerKnownValidators() {
 		registerValidator(CheckBoxField.class, context.getBean(CheckBoxFieldValidator.class));
 		registerValidator(DateField.class, context.getBean(DateFieldValidator.class));
-		registerValidator(RadioButtonField.class, context.getBean(RadioButtonFieldValidator.class));
+		registerValidator(RadioField.class, context.getBean(RadioFieldValidator.class));
 		registerValidator(TimeField.class, context.getBean(TimeFieldValidator.class));
-		registerValidator(TextBoxField.class, context.getBean(TextBoxFieldValidator.class));
+		registerValidator(TextField.class, context.getBean(TextFieldValidator.class));
 	}
 
 }
