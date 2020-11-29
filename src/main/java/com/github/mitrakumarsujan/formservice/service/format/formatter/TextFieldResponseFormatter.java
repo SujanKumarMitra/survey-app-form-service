@@ -13,12 +13,16 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.TextFieldResponse
 @Component
 public class TextFieldResponseFormatter implements FormResponseFormatter<TextField, TextFieldResponse> {
 
-	@Autowired
-	private NoOpFormatter delegatee;
+    private static final String ENTER_KEY = String.valueOf((char) 10);
+    private static final String NEW_LINE = System.lineSeparator();
 
-	@Override
-	public void format(TextField field, TextFieldResponse response) {
-		delegatee.format(field, response);
-	}
+    @Override
+    public void format(TextField field, TextFieldResponse response) {
+        String answer = response.getAnswer();
+        answer = answer
+                .replaceAll(NEW_LINE, "")
+                .replaceAll(ENTER_KEY, "");
+        response.setAnswer(answer);
+    }
 
 }
