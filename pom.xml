@@ -13,7 +13,7 @@
 	<artifactId>form-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Form Service</name>
-	<description> Service for creation and submission of forms</description>
+	<description>Service for creation and submission of forms</description>
 
 	<properties>
 		<java.version>11</java.version>
