@@ -1,11 +1,10 @@
 package com.github.mitrakumarsujan.formservice.service.uidgen;
 
-import java.util.UUID;
-
+import com.github.mitrakumarsujan.formmodel.model.form.PatternBasedFormField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.formmodel.model.form.PatternBasedFormField;
+import java.util.UUID;
 
 /**
  * @author Sujan Kumar Mitra

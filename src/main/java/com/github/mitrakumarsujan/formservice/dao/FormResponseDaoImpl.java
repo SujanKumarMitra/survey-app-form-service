@@ -1,22 +1,22 @@
 package com.github.mitrakumarsujan.formservice.dao;
 
-import java.net.URI;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.client.ResourceAccessException;
-
 import com.github.mitrakumarsujan.formmodel.exception.ApplicationException;
 import com.github.mitrakumarsujan.formmodel.exception.RestCommunicationException;
 import com.github.mitrakumarsujan.formmodel.exception.ServerErrorException;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
-import com.github.mitrakumarsujan.formmodel.util.GenericRestTemplateFacade;
 import com.github.mitrakumarsujan.formmodel.util.URIBuilderUtils;
-import com.github.mitrakumarsujan.formservice.configuration.ApplicationConfigurationProperties;
+import com.github.mitrakumarsujan.formservice.configuration.ServiceEndpointsConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
 
 /**
  * @author Sujan Kumar Mitra
@@ -25,13 +25,14 @@ import com.github.mitrakumarsujan.formservice.configuration.ApplicationConfigura
 @Repository
 public class FormResponseDaoImpl implements FormResponseDao {
 
-	private static final String FORM_RESPONSE_ENDPOINT = "/v1/formResponse";
+	private static final String FORM_RESPONSE_PATH = "v1/formResponse";
 
 	@Autowired
-	private GenericRestTemplateFacade restTemplate;
+	@Qualifier("default-rest-template")
+	private RestTemplate restTemplate;
 
 	@Autowired
-	private ApplicationConfigurationProperties properties;
+	private ServiceEndpointsConfiguration serviceEndpointsConfig;
 
 	@Autowired
 	private URIBuilderUtils uriBuilderUtil;
@@ -40,8 +41,8 @@ public class FormResponseDaoImpl implements FormResponseDao {
 
 	@Override
 	public FormResponse save(FormResponse response) throws ApplicationException {
-		String baseUrl = properties.getDataStorageServiceUrl();
-		URI uri = uriBuilderUtil.getURI(baseUrl, FORM_RESPONSE_ENDPOINT);
+		String baseUrl = serviceEndpointsConfig.getDataStorageServiceEndpoint();
+		URI uri = uriBuilderUtil.getURI(baseUrl, FORM_RESPONSE_PATH);
 
 		String formId = response.getFormId();
 		LOGGER.info("requesting data-storage-service to save formResponse for formId '{}'", formId);

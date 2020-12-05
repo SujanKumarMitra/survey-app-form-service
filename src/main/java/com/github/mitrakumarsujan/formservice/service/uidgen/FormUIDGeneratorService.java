@@ -24,6 +24,6 @@ public class FormUIDGeneratorService {
 							.parallelStream()
 							.map(FormField::getId)
 							.toArray(String[]::new);
-		return hashFunction.toHash(uids);
+		return hashFunction.toHash((Object[]) uids);
 	}
 }
