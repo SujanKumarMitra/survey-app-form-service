@@ -15,4 +15,4 @@ server:
 
 app:
   service-endpoints:
-    data-storage-service: "http://localhost:8082"
+    data-storage-service: "http://localhost:8080"

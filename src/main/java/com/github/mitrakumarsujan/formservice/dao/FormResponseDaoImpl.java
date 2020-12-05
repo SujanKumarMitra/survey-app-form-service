@@ -28,7 +28,7 @@ public class FormResponseDaoImpl implements FormResponseDao {
 	private static final String FORM_RESPONSE_PATH = "v1/formResponse";
 
 	@Autowired
-	@Qualifier("default-rest-template")
+	@Qualifier("load-balanced-rest-template")
 	private RestTemplate restTemplate;
 
 	@Autowired

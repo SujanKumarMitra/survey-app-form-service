@@ -13,7 +13,7 @@
     <artifactId>form-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Form Service</name>
-    <description>Service for creation and submission of forms</description>
+    <description>Handles creation and submission of forms in Anonymous Surveys</description>
 
     <properties>
         <java.version>11</java.version>
@@ -49,12 +49,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

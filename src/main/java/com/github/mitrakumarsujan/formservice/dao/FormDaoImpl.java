@@ -34,7 +34,7 @@ public class FormDaoImpl implements FormDao {
     private static final String FORM_PATH = "v1/form";
 
     @Autowired
-    @Qualifier("default-rest-template")
+    @Qualifier("load-balanced-rest-template")
     private RestTemplate restTemplate;
 
     @Autowired
