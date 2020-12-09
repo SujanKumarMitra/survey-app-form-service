@@ -5,6 +5,7 @@ import java.time.ZoneId;
 
 import javax.validation.Valid;
 
+import com.github.mitrakumarsujan.formmodel.model.restresponse.SuccessMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,43 +30,41 @@ import com.github.mitrakumarsujan.formservice.service.FormResponseService;
 @CrossOrigin
 public class FormResponseController {
 
-	@Autowired
-	private RestSuccessResponseBuilderFactory responseBuilderFactory;
+    @Autowired
+    private RestSuccessResponseBuilderFactory responseBuilderFactory;
 
-	@Autowired
-	private FormResponseService formResponseService;
+    @Autowired
+    private FormResponseService formResponseService;
 
-	@PostMapping
-	public ResponseEntity<RestSuccessResponse<FormResponse>> submit(
-			ZoneId localeZoneId,
-			@RequestParam(name = "zoneId", required = false) ZoneId clientZoneId,
-			@RequestBody @Valid FormResponse response) {
+    @PostMapping
+    public ResponseEntity<RestSuccessResponse<SuccessMessage>> submitResponse(
+            ZoneId localeZoneId,
+            @RequestParam(name = "zoneId", required = false) ZoneId clientZoneId,
+            @RequestBody @Valid FormResponse response) {
 
-		setTimestamp(localeZoneId, clientZoneId, response);
+        setTimestamp(localeZoneId, clientZoneId, response);
 
-		formResponseService.submit(response);
+        formResponseService.submit(response);
 
+        return responseBuilderFactory.getSingleDataBuilder(SuccessMessage.class)
+                                     .withData(new SuccessMessage(getSuccessMessage()))
+                                     .withStatus(HttpStatus.CREATED)
+                                     .build()
+                                     .toResponseEntity();
+    }
 
-		return responseBuilderFactory	.getSingleDataBuilder(FormResponse.class)
-										.withData(response)
-										.withMessage(getSuccessMessage())
-										.withStatus(HttpStatus.CREATED)
-										.build()
-										.toResponseEntity();
-	}
+    private String getSuccessMessage() {
+        return "Response submitted successfully.";
+    }
 
-	private String getSuccessMessage() {
-		return "Response submitted successfully.";
-	}
-
-	private void setTimestamp(ZoneId localeZoneId, ZoneId clientZoneId, FormResponse response) {
-		LocalDateTime timestamp;
-		if (clientZoneId == null) {
-			timestamp = LocalDateTime.now(localeZoneId);
-		} else {
-			timestamp = LocalDateTime.now(clientZoneId);
-		}
-		response.setTimestamp(timestamp);
-	}
+    private void setTimestamp(ZoneId localeZoneId, ZoneId clientZoneId, FormResponse response) {
+        LocalDateTime timestamp;
+        if (clientZoneId == null) {
+            timestamp = LocalDateTime.now(localeZoneId);
+        } else {
+            timestamp = LocalDateTime.now(clientZoneId);
+        }
+        response.setTimestamp(timestamp);
+    }
 
 }
