@@ -1,25 +1,32 @@
 package com.github.mitrakumarsujan.formservice.configuration;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import java.util.Collections;
 import java.util.Map;
 
+/**
+ * @author skmitra
+ * @since 09-12-2020
+ */
 @ConfigurationProperties(prefix = "app")
 public class ServiceEndpointsConfiguration {
 
-    private final Map<String, String> serviceEndpoints;
+    private Map<String,String> serviceEndpoints;
 
-    @ConstructorBinding
-    public ServiceEndpointsConfiguration(Map<String, String> serviceEndpoints) {
-        this.serviceEndpoints = Collections.unmodifiableMap(serviceEndpoints);
+    public Map<String, String> getServiceEndpoints() {
+        return serviceEndpoints;
+    }
+
+    public void setServiceEndpoints(Map<String, String> serviceEndpoints) {
+        this.serviceEndpoints = serviceEndpoints;
     }
 
     public String getEndpoint(String serviceId) {
-        return serviceEndpoints.get(serviceId);
+        return this.serviceEndpoints.get(serviceId);
     }
 
     public String getDataStorageServiceEndpoint() {

@@ -10,9 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,6 +25,7 @@ import java.net.URI;
  * @since 2020-10-31
  */
 @Repository
+@RefreshScope
 public class FormResponseDaoImpl implements FormResponseDao {
 
 	private static final String FORM_RESPONSE_PATH = "v1/formResponse";
