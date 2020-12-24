@@ -58,8 +58,10 @@ public class FormDaoImpl implements FormDao {
         try {
             responseEntity = restTemplate.postForEntity(uri, form, String.class);
         } catch (ResourceAccessException e) {
+            LOGGER.warn(e.toString());
             throw new RestCommunicationException();
         } catch (Exception e) {
+            LOGGER.warn(e.toString());
             throw new ServerErrorException(e);
         }
         HttpStatus status = responseEntity.getStatusCode();
@@ -88,13 +90,13 @@ public class FormDaoImpl implements FormDao {
                     });
             form = response.getBody().getData();
         } catch (ResourceAccessException e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.warn(e.toString());
             throw new RestCommunicationException();
         } catch (HttpClientErrorException.NotFound e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.warn(e.toString());
             throw new FormNotFoundException(formId);
         } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.warn(e.toString());
             throw new ServerErrorException(e);
         }
         LOGGER.info("received form '{}' from data-storage-service", formId);
