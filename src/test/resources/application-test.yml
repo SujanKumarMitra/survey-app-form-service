@@ -1,0 +1,6 @@
+server:
+  port: 0
+
+app:
+  service-endpoints:
+    data-storage-service: "http://localhost:8080"
