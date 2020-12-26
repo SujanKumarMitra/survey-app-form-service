@@ -46,9 +46,8 @@ public class FormController {
 
 	@PostMapping
 	public ResponseEntity<RestSuccessResponse<Form>> createForm(
-			@RequestBody @Valid FormTemplate template,
-			HttpServletRequest request) {
-		Form createdForm = formService.createForm(template, request);
+			@RequestBody @Valid FormTemplate template) {
+		Form createdForm = formService.createForm(template);
 		HttpStatus status = HttpStatus.CREATED;
 		return responseBuilderFactory	.getSingleDataBuilder(Form.class)
 										.withData(createdForm)

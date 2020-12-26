@@ -35,6 +35,7 @@ public class ResponseFieldRearrangerServiceImpl implements ResponseFieldRearrang
 		return form	.getTemplate()
 					.getFields()
 					.stream()
+					.sequential()
 					.map(FormField::getId)
 					.collect(Collectors.toMap(Function.identity(), f -> index.getAndIncrement()));
 	}
