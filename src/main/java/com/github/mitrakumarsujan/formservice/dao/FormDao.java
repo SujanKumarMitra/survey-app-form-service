@@ -13,6 +13,6 @@ public interface FormDao {
 	
 	Form save(Form form);
 	
-	Optional<Form> find(String formId) throws FormNotFoundException;
+	Optional<Form> find(String formId);
 	
 }

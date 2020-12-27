@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
@@ -35,6 +36,7 @@ public class FormServiceImpl implements FormService {
 	@Autowired
 	private KeyGeneratorService keyGeneratorService;
 	@Autowired
+	@Qualifier("cacheableFormDao")
 	private FormDao formDao;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FormServiceImpl.class);

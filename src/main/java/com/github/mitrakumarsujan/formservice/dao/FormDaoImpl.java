@@ -1,7 +1,6 @@
 package com.github.mitrakumarsujan.formservice.dao;
 
 import com.github.mitrakumarsujan.formmodel.exception.ApplicationException;
-import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
 import com.github.mitrakumarsujan.formmodel.exception.RestCommunicationException;
 import com.github.mitrakumarsujan.formmodel.exception.ServerErrorException;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
@@ -17,8 +16,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
@@ -30,23 +28,19 @@ import java.util.Optional;
  * @author Sujan Kumar Mitra
  * @since 2020-10-27
  */
-@Repository
+@Service
 @RefreshScope
 public class FormDaoImpl implements FormDao {
 
     private static final String FORM_PATH = "v1/form";
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(FormDaoImpl.class);
     @Autowired
     @Qualifier("load-balanced-rest-template")
     private RestTemplate restTemplate;
-
     @Autowired
     private ServiceEndpointsConfiguration serviceEndpointsConfig;
-
     @Autowired
     private URIBuilderUtils uriBuilderUtil;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(FormDaoImpl.class);
 
     @Override
     public Form save(Form form) throws ApplicationException {

@@ -5,6 +5,18 @@ spring:
         enabled: true
         service-id: "config-server"
 
+  redis:
+    host: "localhost"
+    port: 6379
+
+  cache:
+    type: "redis"
+    redis:
+      use-key-prefix: true
+      time-to-live: "10m"
+      cache-null-values: false
+      key-prefix: "survey_app::"
+
 eureka:
   client:
     service-url:
