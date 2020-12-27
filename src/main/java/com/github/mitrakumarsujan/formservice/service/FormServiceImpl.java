@@ -1,6 +1,8 @@
 package com.github.mitrakumarsujan.formservice.service;
 
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -19,6 +21,8 @@ import com.github.mitrakumarsujan.formmodel.model.form.OptionField;
 import com.github.mitrakumarsujan.formservice.dao.FormDao;
 import com.github.mitrakumarsujan.formservice.service.keygenerator.KeyGeneratorService;
 import com.github.mitrakumarsujan.formservice.service.uidgenerator.UIDGeneratorService;
+
+import static java.text.MessageFormat.format;
 
 /**
  * @author Sujan Kumar Mitra
@@ -65,7 +69,9 @@ public class FormServiceImpl implements FormService {
 
 	@Override
 	public Form getForm(String formId) throws FormNotFoundException {
-		return formDao.find(formId);
+		Optional<Form> optionalForm = formDao.find(formId);
+		return optionalForm.orElseThrow(() ->
+				new FormNotFoundException(format("no form found for id [{0}]",formId)));
 	}
 
 	private void setUIDs(FormTemplate template) {

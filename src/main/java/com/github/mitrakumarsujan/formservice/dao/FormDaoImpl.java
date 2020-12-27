@@ -24,6 +24,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.util.Optional;
 
 /**
  * @author Sujan Kumar Mitra
@@ -74,12 +75,11 @@ public class FormDaoImpl implements FormDao {
     }
 
     @Override
-    public Form find(String formId) throws ApplicationException {
+    public Optional<Form> find(String formId) throws ApplicationException {
         String baseUrl = serviceEndpointsConfig.getDataStorageServiceEndpoint();
         URI uri = uriBuilderUtil.getURI(baseUrl, FORM_PATH, formId);
 
         LOGGER.info("requesting data-storage-service to get form '{}'", formId);
-
         Form form = null;
         try {
             ResponseEntity<RestSuccessResponse<Form>> response = restTemplate.exchange(
@@ -89,18 +89,18 @@ public class FormDaoImpl implements FormDao {
                     new ParameterizedTypeReference<RestSuccessResponse<Form>>() {
                     });
             form = response.getBody().getData();
+            LOGGER.info("received form '{}' from data-storage-service", formId);
+            return Optional.of(form);
         } catch (ResourceAccessException e) {
             LOGGER.warn(e.toString());
             throw new RestCommunicationException();
         } catch (HttpClientErrorException.NotFound e) {
             LOGGER.warn(e.toString());
-            throw new FormNotFoundException(formId);
+            return Optional.empty();
         } catch (Exception e) {
             LOGGER.warn(e.toString());
             throw new ServerErrorException(e);
         }
-        LOGGER.info("received form '{}' from data-storage-service", formId);
-        return form;
     }
 
 }
