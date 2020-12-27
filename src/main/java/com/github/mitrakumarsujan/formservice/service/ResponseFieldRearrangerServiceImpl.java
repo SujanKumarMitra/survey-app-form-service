@@ -31,7 +31,7 @@ public class ResponseFieldRearrangerServiceImpl implements ResponseFieldRearrang
 	}
 
 	private Map<String, Integer> getIndexedMap(Form form) {
-		MutableInteger index = new MutableInteger();
+		Counter index = new Counter();
 		return form	.getTemplate()
 					.getFields()
 					.stream()
@@ -40,10 +40,10 @@ public class ResponseFieldRearrangerServiceImpl implements ResponseFieldRearrang
 					.collect(Collectors.toMap(Function.identity(), f -> index.getAndIncrement()));
 	}
 
-	private static class MutableInteger {
+	private static class Counter {
 		Integer val;
 
-		MutableInteger() {
+		Counter() {
 			val = Integer.valueOf(0);
 		}
 

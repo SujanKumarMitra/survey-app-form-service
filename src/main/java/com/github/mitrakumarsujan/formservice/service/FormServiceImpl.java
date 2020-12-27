@@ -1,6 +1,5 @@
 package com.github.mitrakumarsujan.formservice.service;
 
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -20,7 +19,7 @@ import com.github.mitrakumarsujan.formmodel.model.form.MutableForm;
 import com.github.mitrakumarsujan.formmodel.model.form.OptionField;
 import com.github.mitrakumarsujan.formservice.dao.FormDao;
 import com.github.mitrakumarsujan.formservice.service.keygenerator.KeyGeneratorService;
-import com.github.mitrakumarsujan.formservice.service.uidgenerator.UIDGeneratorService;
+import com.github.mitrakumarsujan.formservice.service.idgenerator.IdGeneratorService;
 
 import static java.text.MessageFormat.format;
 
@@ -32,7 +31,7 @@ import static java.text.MessageFormat.format;
 public class FormServiceImpl implements FormService {
 
 	@Autowired
-	private UIDGeneratorService uidGeneratorService;
+	private IdGeneratorService idGeneratorService;
 	@Autowired
 	private KeyGeneratorService keyGeneratorService;
 	@Autowired
@@ -54,9 +53,9 @@ public class FormServiceImpl implements FormService {
 
 		LOGGER.info("setting uid and key for form '{}'", name);
 		String formKey = keyGeneratorService.generate(form);
-		String formUID = uidGeneratorService.generate(form);
+		String formId = idGeneratorService.generate(form);
 
-		form.setId(formUID);
+		form.setId(formId);
 		form.setKey(formKey);
 		LOGGER.info("form uid and key set in form '{}'", name);
 
@@ -99,7 +98,7 @@ public class FormServiceImpl implements FormService {
 	private void setUIDInField(OptionField optionField) {
 		String text = optionField.getText();
 		LOGGER.info("generating uid for OptionField '{}'", text);
-		String uid = uidGeneratorService.generate(optionField);
+		String uid = idGeneratorService.generate(optionField);
 		LOGGER.info("uid generated for OptionField '{}'", text);
 		optionField.setId(uid);
 	}
@@ -107,7 +106,7 @@ public class FormServiceImpl implements FormService {
 	private void setUIDInField(FormField formField) {
 		String question = formField.getQuestion();
 		LOGGER.info("generating uid for FormField '{}'", question);
-		String uid = uidGeneratorService.generate(formField);
+		String uid = idGeneratorService.generate(formField);
 		LOGGER.info("uid generated for FormField '{}'", question);
 		formField.setId(uid);
 	}

@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.formservice.service.uidgenerator;
+package com.github.mitrakumarsujan.formservice.service.idgenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,13 +10,13 @@ import com.github.mitrakumarsujan.formmodel.model.form.FormField;
  * @since 2020-10-25
  */
 @Service
-public class FormFieldUIDGeneratorService {
+public class FormFieldIdGeneratorService {
 
 	@Autowired
-	private FormFieldUIDGeneratorFactoryImpl generatorFactory;
+	private FormFieldIdGeneratorFactoryImpl generatorFactory;
 
 	public String generate(FormField formField) {
-		UIDGenerator<FormField> generator = generatorFactory.getGenerator(formField.getClass());
+		IdGenerator<FormField> generator = generatorFactory.getGenerator(formField.getClass());
 		return generator.generate(formField);
 	}
 

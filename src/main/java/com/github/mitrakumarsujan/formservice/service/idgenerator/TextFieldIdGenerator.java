@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.formservice.service.uidgenerator;
+package com.github.mitrakumarsujan.formservice.service.idgenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,10 +10,10 @@ import com.github.mitrakumarsujan.formmodel.model.form.TextField;
  * @since 2020-10-25
  */
 @Component
-public class TextFieldUIDGenerator implements UIDGenerator<TextField> {
+public class TextFieldIdGenerator implements IdGenerator<TextField> {
 
 	@Autowired
-	private FormFieldUIDGenerator delegatee;
+	private FormFieldIdGenerator delegatee;
 
 	@Override
 	public String generate(TextField textBox) {

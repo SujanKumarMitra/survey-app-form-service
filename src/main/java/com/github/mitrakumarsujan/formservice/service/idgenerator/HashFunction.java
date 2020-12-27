@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.formservice.service.uidgenerator;
+package com.github.mitrakumarsujan.formservice.service.idgenerator;
 
 /**
  * @author Sujan Kumar Mitra

@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.formservice.service.uidgenerator;
+package com.github.mitrakumarsujan.formservice.service.idgenerator;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +14,7 @@ import com.github.mitrakumarsujan.formmodel.model.form.OptionField;
  * @since 2020-10-25
  */
 @Component
-public class ChoiceBasedFormFieldUIDGenerator implements UIDGenerator<ChoiceBasedFormField> {
+public class ChoiceBasedFormFieldIdGenerator implements IdGenerator<ChoiceBasedFormField> {
 
 	@Autowired
 	private HashFunction hashFunction;

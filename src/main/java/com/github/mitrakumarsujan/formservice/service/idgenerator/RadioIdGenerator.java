@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.formservice.service.uidgenerator;
+package com.github.mitrakumarsujan.formservice.service.idgenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,10 +10,10 @@ import com.github.mitrakumarsujan.formmodel.model.form.RadioField;
  * @since 2020-10-25
  */
 @Component
-public class RadioUIDGenerator implements UIDGenerator<RadioField> {
+public class RadioIdGenerator implements IdGenerator<RadioField> {
 
 	@Autowired
-	private ChoiceBasedFormFieldUIDGenerator delegatee;
+	private ChoiceBasedFormFieldIdGenerator delegatee;
 
 	@Override
 	public String generate(RadioField radioButton) {

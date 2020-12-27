@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.formservice.service.uidgenerator;
+package com.github.mitrakumarsujan.formservice.service.idgenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,10 +10,10 @@ import com.github.mitrakumarsujan.formmodel.model.form.CheckBoxField;
  * @since 2020-10-25
  */
 @Component
-public class CheckBoxUIDGenerator implements UIDGenerator<CheckBoxField> {
+public class CheckBoxIdGenerator implements IdGenerator<CheckBoxField> {
 
 	@Autowired
-	private ChoiceBasedFormFieldUIDGenerator delegatee;
+	private ChoiceBasedFormFieldIdGenerator delegatee;
 
 	@Override
 	public String generate(CheckBoxField checkBox) {

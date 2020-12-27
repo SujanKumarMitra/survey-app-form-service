@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.formservice.service.uidgenerator;
+package com.github.mitrakumarsujan.formservice.service.idgenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,10 +10,10 @@ import com.github.mitrakumarsujan.formmodel.model.form.DateField;
  * @since 2020-10-25
  */
 @Component
-public class DateFieldUIDGenerator implements UIDGenerator<DateField> {
+public class DateFieldIdGenerator implements IdGenerator<DateField> {
 
 	@Autowired
-	private PatternBasedFormFieldUIDGenerator delegatee;
+	private PatternBasedFormFieldIdGenerator delegatee;
 
 	@Override
 	public String generate(DateField dateField) {

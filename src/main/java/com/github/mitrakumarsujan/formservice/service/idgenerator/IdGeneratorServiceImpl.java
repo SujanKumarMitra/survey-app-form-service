@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.formservice.service.uidgenerator;
+package com.github.mitrakumarsujan.formservice.service.idgenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +12,16 @@ import com.github.mitrakumarsujan.formmodel.model.form.OptionField;
  * @since 2020-10-25
  */
 @Service
-public class UIDGeneratorServiceImpl implements UIDGeneratorService {
+public class IdGeneratorServiceImpl implements IdGeneratorService {
 
 	@Autowired
-	private FormUIDGeneratorService formUIDGeneratorDelegatee;
+	private FormIdGeneratorService formUIDGeneratorDelegatee;
 
 	@Autowired
-	private FormFieldUIDGeneratorService formFieldUIDGeneratorDelegatee;
+	private FormFieldIdGeneratorService formFieldUIDGeneratorDelegatee;
 
 	@Autowired
-	private OptionFieldUIDGeneratorService optionFieldUIDGeneratorDelegatee;
+	private OptionFieldIdGeneratorService optionFieldUIDGeneratorDelegatee;
 
 	@Override
 	public String generate(Form form) {
